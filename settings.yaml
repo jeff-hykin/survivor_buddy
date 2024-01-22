@@ -1,0 +1,3 @@
+project:
+    cameraPortNumber: 8082
+    rosbridgePortNumber: 9093
