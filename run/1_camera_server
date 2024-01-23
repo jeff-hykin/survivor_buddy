@@ -32,6 +32,7 @@ const updateInfo = async ()=>{
         certFile,
         keyFile,
         root: FileSystem.parentPath(websiteEntrypoint),
+        allowAbsolute: true,
     })
 
     const ipAddresses = Deno.networkInterfaces().filter((each)=>each.family=="IPv4").map((each)=>each.address)

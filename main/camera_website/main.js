@@ -1,5 +1,6 @@
 import { Elemental } from "https://deno.land/x/elementalist@0.5.35/main/deno.js?code"
-import { fadeIn, fadeOut } from "https://deno.land/x/good_component@0.2.12/main/animations.js"
+import { fadeIn, fadeOut } from "https://deno.land/x/good_component@0.2.14/main/animations.js"
+import { showToast, showErrorToast } from "https://deno.land/x/good_component@0.2.14/main/actions/show_toast.js"
 
 // 
 // 
@@ -293,6 +294,7 @@ import { fadeIn, fadeOut } from "https://deno.land/x/good_component@0.2.12/main/
                         ros.on("error", function (error) {
                             console.log("Error connecting to websocket server: ", error)
                             showMessage(`1. Make sure <code>roslaunch rb_server.launch</code> is running<br>2. Try opening this in a new tab:<br><a href="https://${baseValue}">https://${baseValue}</a><br>3. Click Advanced -> Accept Risk and Continue<br>4.Then re-run this test<br>`)
+                            showErrorToast(`Didn't Connect to socket\nSee log ->\n\n(Click to make this go away)`, {position: 'left',})
                         })
 
                         ros.on("close", function () {

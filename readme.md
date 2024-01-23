@@ -1,6 +1,6 @@
 # What is this?
 
-A repo for the survivor buddy lab assignment
+A repo for the survivor buddy lab assignment (Work-in-Progress at the moment)
 
 
 # What needs to be done?
