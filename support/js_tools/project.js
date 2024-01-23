@@ -5,13 +5,20 @@ import { Console, clearAnsiStylesFrom, black, white, red, green, blue, yellow, c
 
 import * as yaml from "https://deno.land/std@0.168.0/encoding/yaml.ts"
 
+const projectRoot = FileSystem.makeAbsolutePath(await FileSystem.walkUpUntil("deno.lock"))
+const settingsPath = `${projectRoot}/settings.yaml`
+const certFile = FileSystem.makeAbsolutePath(`${projectRoot}/support/cert.pem`)
+const keyFile = FileSystem.makeAbsolutePath(`${projectRoot}/support/key.pem`)
+const catkinFolder = FileSystem.makeAbsolutePath(`${projectRoot}/support/catkin_ws/`)
+const serverFolder = FileSystem.makeAbsolutePath(`${projectRoot}/support/catkin_ws/src/sb_web`)
+
 export const project = {
-    projectRoot: FileSystem.makeAbsolutePath(await FileSystem.walkUpUntil("deno.lock")),
-    settingsPath: `${projectRoot}/settings.yaml`,
-    certFile: FileSystem.makeAbsolutePath(`${projectRoot}/support/cert.pem`),
-    keyFile: FileSystem.makeAbsolutePath(`${projectRoot}/support/key.pem`),
-    catkinFolder: FileSystem.makeAbsolutePath(`${projectRoot}/support/catkin_ws/`),
-    serverFolder: FileSystem.makeAbsolutePath(`${projectRoot}/support/catkin_ws/src/sb_web`),
+    projectRoot,
+    settingsPath,
+    certFile,
+    keyFile,
+    catkinFolder,
+    serverFolder,
     get settings() {
         return yaml.parse(FileSystem.sync.read(settingsPath)).project
     }
