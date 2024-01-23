@@ -1,0 +1,3 @@
+- Finish instructions
+- Load env vars before running python stuff
+- Finish creating 4_ros_serial
