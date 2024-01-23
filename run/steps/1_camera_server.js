@@ -53,6 +53,8 @@ const updateInfo = async ()=>{
     newContent = newContent.replace(/name="address" default=".*?"/, `name="port" default=${JSON.stringify(`${ipAddress}`)}`)
     newContent = newContent.replace(/<arg name="certfile" default=".*?"/, `<arg name="certfile" default=${JSON.stringify(certFile)}`)
     newContent = newContent.replace(/<arg name="keyfile" default=".*?"/, `<arg name="keyfile" default=${JSON.stringify(keyFile)}`)
+    newContent = newContent.replace(/<param name="certfile" value=".*?"/, `<param name="certfile" value=${JSON.stringify(certFile)}`)
+    newContent = newContent.replace(/<param name="keyfile" value=".*?"/, `<param name="keyfile" value=${JSON.stringify(keyFile)}`)
     await FileSystem.write({
         data: newContent,
         path: rbServerPath,
