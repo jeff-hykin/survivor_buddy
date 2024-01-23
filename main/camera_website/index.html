@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Survivor Buddy</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- <link rel="stylesheet" href="https://unpkg.com/css-baseline/css/4.css"> -->
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
+        <!-- <script src="https://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script> -->
+        <!-- <script src="https://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script> -->
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> -->
+        <link rel="stylesheet" href="/helpers/css_baseline.css">
+        <link rel="stylesheet" href="/helpers/materialize.min.css">
+        <script src="/helpers/eventemitter2.js"></script>
+        <script src="/helpers/roslib.min.js"></script>
+        <script src="/helpers/materialize.min.js"></script>
+        <link rel="stylesheet" href="/helpers/main.css">
+    </head>
+    
+    <!-- ignore this body, its just a loading animation that gets replaced -->
+    <body>
+        <div style="display: flex;justify-content: center;align-items: center;height: 100vh;">
+            <div style="width: 50px;height: 50px;border: 10px solid #dddddd;border-top-color: #009579;border-radius: 50%;transform: rotate(0.16turn);" id="good-component--initial-loader">
+            </div>
+        </div>
+    </body>
+    <script src="/helpers/animate_loader.js"></script>
+    <script type="module" src="/main.js"></script>
+</html>
