@@ -9,7 +9,7 @@ const projectRoot = FileSystem.makeAbsolutePath(await FileSystem.walkUpUntil("de
 const settingsPath = `${projectRoot}/settings.yaml`
 const certFile = FileSystem.makeAbsolutePath(`${projectRoot}/support/cert.pem`)
 const keyFile = FileSystem.makeAbsolutePath(`${projectRoot}/support/key.pem`)
-const websiteEntrypoint = FileSystem.makeAbsolutePath(`${projectRoot}/main/camera_website.html`)
+const websiteEntrypoint = FileSystem.makeAbsolutePath(`${projectRoot}/main/camera_website/index.html`)
 const catkinFolder = FileSystem.makeAbsolutePath(`${projectRoot}/support/catkin_ws/`)
 const serverFolder = FileSystem.makeAbsolutePath(`${projectRoot}/support/catkin_ws/src/sb_web`)
 
