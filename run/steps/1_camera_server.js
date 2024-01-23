@@ -44,7 +44,7 @@ const updateInfo = async ()=>{
             autocompleteOnSubmit: true,
         })
     }
-
+    
     console.log(`updating rb_server`)
     const rbServerPath = `${projectRoot}/catkin_ws/src/sb_web/rb_server.launch`
     const launchContent = await FileSystem.read(rbServerPath)
@@ -64,9 +64,10 @@ const updateInfo = async ()=>{
     // patch rb_server.launch (inject correct cert.pem and key.pem paths, and default host address)
     // 
     console.log(`#`)
-    console.log(`# open: https://${ipAddress}:${settings.cameraPortNumber}`)
+    console.log(`# camera sever at: https://${ipAddress}:${settings.cameraPortNumber}`)
     console.log(`#`)
 }
+updateInfo()
 for await (const event of watcher) {
     if (event.kind === 'modify') {
         updateInfo()

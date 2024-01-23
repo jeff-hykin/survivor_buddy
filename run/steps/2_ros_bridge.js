@@ -30,6 +30,7 @@ const updateInfo = async ()=>{
     // restart process
     process = run("roslaunch", "rb_server.launch", Cwd(serverFolder))
 }
+updateInfo()
 for await (const event of watcher) {
     if (event.kind === 'modify') {
         updateInfo()
