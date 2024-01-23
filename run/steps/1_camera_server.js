@@ -9,7 +9,7 @@ import { selectOne } from "../../support/js_tools/generic/input_tools.js"
 import "../../support/js_tools/env_vars.js"
 import { project } from "../../support/js_tools/project.js"
 
-const { projectRoot, settingsPath, certFile, keyFile, catkinFolder, serverFolder } = project
+const { projectRoot, settingsPath, certFile, keyFile, catkinFolder, serverFolder, websiteEntrypoint } = project
 
 let server
 const watcher = Deno.watchFs(settingsPath, { recursive: true })
@@ -28,6 +28,7 @@ const updateInfo = async ()=>{
         secure: true,
         certFile,
         keyFile,
+        entryPoint: websiteEntrypoint,
     })
 
     const ipAddresses = Deno.networkInterfaces().filter((each)=>each.family=="IPv4").map((each)=>each.address)
