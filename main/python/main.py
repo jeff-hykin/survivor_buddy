@@ -226,5 +226,5 @@ if True:
 
 # Starting point of everything
 Robot.setup_all_the_boring_boilerplate_stuff()
-moveit_commander.roscpp_initialize(sys.argv)
+moveit_commander.roscpp_initialize([])
 rospy.spin()
