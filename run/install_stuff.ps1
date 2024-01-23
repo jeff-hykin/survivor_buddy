@@ -7,6 +7,8 @@
     curl -fsSL https://deno.land/x/install/install.sh | sh
     export PATH="$HOME/.deno/bin:$PATH"
     deno install -A https://deno.land/x/denoliver/mod.ts
+    # archy
+    deno install -n archy -A https://deno.land/x/archaeopteryx/mod.ts # version 1.0.7
 
     # 
     # install stuff for a nodejs version
