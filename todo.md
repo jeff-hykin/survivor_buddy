@@ -1,4 +1,5 @@
-- Finish instructions
-- Load env vars before running python stuff
 - Finish creating 4_ros_serial
-- Decide on gestures
+- Load env vars before running python stuff
+- Finish instructions
+    - Decide on gestures
+    - Handle websocket explaination

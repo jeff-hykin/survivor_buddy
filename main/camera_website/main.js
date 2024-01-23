@@ -90,154 +90,155 @@ import { fadeIn, fadeOut } from "https://deno.land/x/good_component@0.2.12/main/
     }
 
 // 
-// Register Custom Elements
+// Custom Elements
 // 
-    const html = Elemental({
-        // NOTE: this is a singleton component
-        MessageLog({ children, ...props }) {
-            const element = html`
-                <span id="messageLog"
-                    style="padding: 1rem; position: fixed; right: 0; top: 0; height: 100vh; overflow: auto; width: 15rem; background-color: rgba(0,0,0,0.18); border-left: 2px gray solid; box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3); z-index: 998"
-                    >
-                    (message log)
-                </span>
-            `
-            MessageLog.element = element
-            return element
-        },
-        // NOTE: this is a singleton component
-        CameraSwitch({ children, ...props }) {
-            const switchInput = html`<input type="checkbox" value="">`
-            const video = html`<video muted style="display: none" autoplay></video>`
-            const canvas = html`<canvas style="display: none"></canvas>`
-            
-            // function that is run once scale the height of the video stream to match the configured target width
-            let hasRunOnce = false
-            video.addEventListener(
-                "canplay",
-                (event) => {
-                    if (!hasRunOnce) {
-                        height = video.videoHeight / (video.videoWidth / parameters.videoWidth)
-                        video.setAttribute("width", parameters.videoWidth)
-                        video.setAttribute("height", height)
-                        canvas.setAttribute("width", parameters.videoWidth)
-                        canvas.setAttribute("height", height)
-                        hasRunOnce = true
-                    }
-                },
-                false
-            )
-            
-            let cameraTimer = null
-            let cameraStream = null
-            switchInput.addEventListener(
-                "click",
-                async (event) => {
-                    if (cameraTimer == null) {
-                        // ros.connect("ws://" + window.location.hostname + ":9090");
-                        RosConnecter.setupRosIfNeeded()
-                        
-                        if (!navigator.mediaDevices) {
-                            showMessage(`Error: check the URL<br>Make sure it has "https" and not "http"`)
-                        } else {
-                            try {
-                                cameraStream = await navigator.mediaDevices.getUserMedia({
-                                    video: true,
-                                    audio: true,
-                                })
-                                video.srcObject = cameraStream
-                                video.play()
-                                video.onloadedmetadata = (event) => {
-                                    height = video.videoHeight / (video.videoWidth / parameters.videoWidth)
-                                    video.setAttribute("width", parameters.videoWidth)
-                                    video.setAttribute("height", height)
-                                    canvas.setAttribute("width", parameters.videoWidth)
-                                    canvas.setAttribute("height", height)
-                                }
-                            } catch (error) {
-                                showMessage(`Looks like there was an issue connecting to the camera. Make sure this browser can actually connect to your camera (for example try logging into Zoom and using "Your Room" and try turning on the camera)`)
-                                throw error
-                            }
-
-                            try {
-                                const audioCtx = new (window.AudioContext || window.webkitAudioContext)()
-                                const source   = audioCtx.createMediaStreamSource(cameraStream)
-                                const recorder = audioCtx.createScriptProcessor(parameters.audioBufferSize, 1, 1)
-                                
-                                recorder.onaudioprocess = (event) => {
-                                    rosTopics.audioTopic.publish(
-                                        new ROSLIB.Message({
-                                            data: Array.from(
-                                                new Float32Array(
-                                                    event.inputBuffer.getChannelData(0)
-                                                )
-                                            ),
-                                        })
-                                    )
-                                }
-                                
-                                // source.connect(recorder)
-                                // recorder.connect(audioCtx.destination)
-                            } catch (error) {
-                                showMessage(`Looks like there was an issue connecting to the microphone. Make sure this browser can actually connect to your camera (for example try logging into Zoom and using "Your Room" and try turning on the camera)`)
-                                throw error
-                            }
-                        }
-                        cameraTimer = setInterval(() => takePicture(), parameters.frameSendRate)
-                    } else {
-                        ros.close()
-                        cameraStream.stop()
-                        hasRunOnce = false
-                        takePicture() // blank the screen to prevent last image from staying
-                        clearInterval(cameraTimer)
-                        cameraTimer = null
-                    }
-                },
-                false
-            )
-            
-            // function that is run by trigger several times a second
-            // takes snapshot of video to canvas, encodes the images as base 64 and sends it to the ROS topic
-            function takePicture() {
-                if (!rosTopics.imageTopic) {
-                    if (RosConnecter.rosIsSetup) {
-                        showMessage("Trying to take a picture but rosTopics.imageTopic is null")
-                    }
-                } else {
-                    // showMessage("Trying to take a picture")
-                    canvas.width = parameters.videoWidth
-                    canvas.height = height
-
-                    canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height)
-
-                    var data = canvas.toDataURL("image/jpeg")
-                    var a = document.createElement("a")
-                    a.href = data
-                    var imageMessage = new ROSLIB.Message({
-                        format: "jpeg",
-                        data: data.replace("data:image/jpeg;base64,", ""),
-                    })
-
-                    rosTopics.imageTopic.publish(imageMessage)
+    // NOTE: this is a singleton component
+    function MessageLog({ children, ...props }) {
+        const element = html`
+            <span id="messageLog"
+                style="padding: 1rem; position: fixed; right: 0; top: 0; height: 100vh; overflow: auto; width: 15rem; background-color: rgba(0,0,0,0.18); border-left: 2px gray solid; box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3); z-index: 998"
+                >
+                (message log)
+            </span>
+        `
+        MessageLog.element = element
+        return element
+    }
+    // NOTE: this is a singleton component
+    let height
+    function CameraSwitch({ children, ...props }) {
+        const switchInput = html`<input type="checkbox" value="">`
+        const video = html`<video muted style="display: none" autoplay></video>`
+        const canvas = html`<canvas style="display: none"></canvas>`
+        
+        // function that is run once scale the height of the video stream to match the configured target width
+        let hasRunOnce = false
+        video.addEventListener(
+            "canplay",
+            (event) => {
+                if (!hasRunOnce) {
+                    height = video.videoHeight / (video.videoWidth / parameters.videoWidth)
+                    video.setAttribute("width", parameters.videoWidth)
+                    video.setAttribute("height", height)
+                    canvas.setAttribute("width", parameters.videoWidth)
+                    canvas.setAttribute("height", height)
+                    hasRunOnce = true
                 }
+            },
+            false
+        )
+        
+        let cameraTimer = null
+        let cameraStream = null
+        switchInput.addEventListener(
+            "click",
+            async (event) => {
+                if (cameraTimer == null) {
+                    // ros.connect("ws://" + window.location.hostname + ":9090");
+                    RosConnecter.setupRosIfNeeded()
+                    
+                    if (!navigator.mediaDevices) {
+                        showMessage(`Error: check the URL<br>Make sure it has "https" and not "http"`)
+                    } else {
+                        try {
+                            cameraStream = await navigator.mediaDevices.getUserMedia({
+                                video: true,
+                                audio: true,
+                            })
+                            video.srcObject = cameraStream
+                            video.play()
+                            video.onloadedmetadata = (event) => {
+                                height = video.videoHeight / (video.videoWidth / parameters.videoWidth)
+                                video.setAttribute("width", parameters.videoWidth)
+                                video.setAttribute("height", height)
+                                canvas.setAttribute("width", parameters.videoWidth)
+                                canvas.setAttribute("height", height)
+                            }
+                        } catch (error) {
+                            showMessage(`Looks like there was an issue connecting to the camera. Make sure this browser can actually connect to your camera (for example try logging into Zoom and using "Your Room" and try turning on the camera)`)
+                            throw error
+                        }
+
+                        try {
+                            const audioCtx = new (window.AudioContext || window.webkitAudioContext)()
+                            const source   = audioCtx.createMediaStreamSource(cameraStream)
+                            const recorder = audioCtx.createScriptProcessor(parameters.audioBufferSize, 1, 1)
+                            
+                            recorder.onaudioprocess = (event) => {
+                                rosTopics.audioTopic.publish(
+                                    new ROSLIB.Message({
+                                        data: Array.from(
+                                            new Float32Array(
+                                                event.inputBuffer.getChannelData(0)
+                                            )
+                                        ),
+                                    })
+                                )
+                            }
+                            
+                            // source.connect(recorder)
+                            // recorder.connect(audioCtx.destination)
+                        } catch (error) {
+                            showMessage(`Looks like there was an issue connecting to the microphone. Make sure this browser can actually connect to your camera (for example try logging into Zoom and using "Your Room" and try turning on the camera)`)
+                            throw error
+                        }
+                    }
+                    cameraTimer = setInterval(() => takePicture(), parameters.frameSendRate)
+                } else {
+                    ros.close()
+                    cameraStream.stop()
+                    hasRunOnce = false
+                    takePicture() // blank the screen to prevent last image from staying
+                    clearInterval(cameraTimer)
+                    cameraTimer = null
+                }
+            },
+            false
+        )
+        
+        // function that is run by trigger several times a second
+        // takes snapshot of video to canvas, encodes the images as base 64 and sends it to the ROS topic
+        function takePicture() {
+            if (!rosTopics.imageTopic) {
+                if (RosConnecter.rosIsSetup) {
+                    showMessage("Trying to take a picture but rosTopics.imageTopic is null")
+                }
+            } else {
+                // showMessage("Trying to take a picture")
+                canvas.width = parameters.videoWidth
+                canvas.height = height
+
+                canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height)
+
+                var data = canvas.toDataURL("image/jpeg")
+                var a = document.createElement("a")
+                a.href = data
+                var imageMessage = new ROSLIB.Message({
+                    format: "jpeg",
+                    data: data.replace("data:image/jpeg;base64,", ""),
+                })
+
+                rosTopics.imageTopic.publish(imageMessage)
             }
-            
-            return html`
-                <div class="switch"
-                    style="margin-bottom: 2rem; width: 100%; display: flex; justify-content: space-between; align-items: center;">
-                    <h5>
-                        Activate Camera
-                    </h5>
-                    ${video}
-                    <label>
-                        ${switchInput}
-                        <span class="lever"></span>
-                    </label>
-                </div>
-            `
-        },
-        // Singleton component
-        RosConnecter() {
+        }
+        
+        return html`
+            <div class="switch"
+                style="margin-bottom: 2rem; width: 100%; display: flex; justify-content: space-between; align-items: center;">
+                <h5>
+                    Activate Camera
+                </h5>
+                ${video}
+                <label>
+                    ${switchInput}
+                    <span class="lever"></span>
+                </label>
+            </div>
+        `
+    }
+    // Singleton component
+    function RosConnecter() {
+        try {
             const ipAddressInput = html`<input type="text" placeholder="IP Address" value=${"" + window.location.hostname} />`
             const portInput = html`<input type="text" placeholder="Port" value="${parameters.defaultPort}" />`
             const connectButton = html`
@@ -319,7 +320,18 @@ import { fadeIn, fadeOut } from "https://deno.land/x/good_component@0.2.12/main/
                     ${connectButton}
                 </div>
             `
-        },
+        } catch (error) {
+            console.debug(`error is:`,error)
+            throw error
+        }
+    }
+// 
+// Register custom elements
+// 
+    const html = Elemental({
+        MessageLog,
+        CameraSwitch,
+        RosConnecter,
     })
 // 
 // 
