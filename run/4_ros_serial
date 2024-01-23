@@ -1,3 +1,4 @@
+echo "Making sure /dev/ttyUSB0 is accessible"
 sudo chmod 777 /dev/ttyUSB0
 # # connect to moveit
 # python3 sb_interface.py &
