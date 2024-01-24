@@ -17,7 +17,7 @@ export const extractEnvVarsFromShellScript = async ({ scriptPath, shellExecutabl
     } else {
         console.debug(`scriptPath is:`,scriptPath)
         let scriptContent = FileSystem.sync.read(scriptPath)
-        console.debug(`scriptContent is:`,scriptContent)
+        console.debug(`scriptContent is:`, indent({ string: scriptContent}))
         const output = await run(
             shellExecutable,
             "-c",
@@ -26,9 +26,11 @@ export const extractEnvVarsFromShellScript = async ({ scriptPath, shellExecutabl
                 
                 echo "${endIdentifierString}"
                 '${shellPartEscape(Deno.execPath)}' eval '${shellPartEscape(`console.log(JSON.stringify(Deno.env.toObject()))`)}'
+                echo end of deno output
             `,
             Stdout(returnAsString)
         )
+        console.debug(`output is:`, indent({ string: output}))
         const pattern = new RegExp(`([^a]|[a])*${endIdentifierString}`)
         if (!output.match(pattern)) {
             if (debug) {
