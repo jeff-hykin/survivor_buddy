@@ -21,7 +21,8 @@
     # 
     # install ROS and Moveit
     # 
-    ./run/ros_install_noetic.sh && \
+    ./run/ros_install_noetic.sh <<< '2
+    ' && \
         sudo apt-get update && \
         sudo apt-get install -y \
             python3-pip \
