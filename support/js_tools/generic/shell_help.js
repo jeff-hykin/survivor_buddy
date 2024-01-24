@@ -26,6 +26,7 @@ export const extractEnvVarsFromShellScript = async ({ scriptPath, shellExecutabl
                     . '${shellPartEscape(scriptPath)}'
                     
                     echo "${endIdentifierString}"
+                    '${shellPartEscape(Deno.execPath)}' eval 'console.log("howdy")'
                     '${shellPartEscape(Deno.execPath)}' eval '${shellPartEscape(`console.log(JSON.stringify(Deno.env.toObject()))`)}'
                     echo end of deno output
                 `,
