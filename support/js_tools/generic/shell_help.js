@@ -27,6 +27,7 @@ export const extractEnvVarsFromShellScript = async ({ scriptPath, shellExecutabl
                     '${shellPartEscape(Deno.execPath)}' eval '${shellPartEscape(`console.log(JSON.stringify(Deno.env.toObject()))`)}'
                     echo end of deno output
                 `
+        console.debug(`commandArg is:`,"\n"+indent({string:commandArg}))
         let command = new Deno.Command(shellExecutable, {
             args: [
                 "-c",
