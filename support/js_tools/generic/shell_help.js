@@ -30,6 +30,7 @@ export const extractEnvVarsFromShellScript = async ({ scriptPath, shellExecutabl
                     echo end of deno output
                 `,
             ],
+            stdout: 'piped',
         })
         let process = command.spawn()
         const output = await streamToString(process.stdout)
