@@ -48,6 +48,7 @@ export const extractEnvVarsFromShellScript = async ({ scriptPath, shellExecutabl
         //     `,
         //     Stdout(returnAsString)
         // )
+        console.debug(`output is:`,"\n"+indent({string:output}))
         const pattern = new RegExp(`([^a]|[a])*${endIdentifierString}`)
         if (!output.match(pattern)) {
             if (debug) {
