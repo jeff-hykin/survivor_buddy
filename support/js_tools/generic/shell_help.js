@@ -2,6 +2,8 @@ import { FileSystem, glob } from "https://deno.land/x/quickr@0.6.62/main/file_sy
 import { run, hasCommand, throwIfFails, zipInto, mergeInto, returnAsString, Timeout, Env, Cwd, Stdin, Stdout, Stderr, Out, Overwrite, AppendTo, } from "https://deno.land/x/quickr@0.6.62/main/run.js"
 import { Console, clearAnsiStylesFrom, black, white, red, green, blue, yellow, cyan, magenta, lightBlack, lightWhite, lightRed, lightGreen, lightBlue, lightYellow, lightMagenta, lightCyan, blackBackground, whiteBackground, redBackground, greenBackground, blueBackground, yellowBackground, magentaBackground, cyanBackground, lightBlackBackground, lightRedBackground, lightGreenBackground, lightYellowBackground, lightBlueBackground, lightMagentaBackground, lightCyanBackground, lightWhiteBackground, bold, reset, dim, italic, underline, inverse, strikethrough, gray, grey, lightGray, lightGrey, grayBackground, greyBackground, lightGrayBackground, lightGreyBackground, } from "https://deno.land/x/quickr@0.6.62/main/console.js"
 
+import { capitalize, indent, toCamelCase, digitsToEnglishArray, toPascalCase, toKebabCase, toSnakeCase, toScreamingtoKebabCase, toScreamingtoSnakeCase, toRepresentation, toString, regex, findAll, iterativelyFindAll, escapeRegexMatch, escapeRegexReplace, extractFirst, isValidIdentifier, removeCommonPrefix } from "https://deno.land/x/good@1.6.0.0/string.js"
+
 // 
 // tooling
 // 
@@ -14,6 +16,8 @@ export const extractEnvVarsFromShellScript = async ({ scriptPath, shellExecutabl
         console.warn(`Unable to extract env vars from ${JSON.stringify(scriptPath)} because it isn't a file`)
         return {}
     } else {
+        let scriptContent = FileSystem.sync.read(scriptPath)
+        console.debug(`scriptContent is:\n`,indent({ string: scriptContent }))
         const output = await run(
             shellExecutable,
             "-c",
