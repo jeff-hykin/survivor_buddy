@@ -4,8 +4,12 @@
     # 
     # install deno
     #
-    sudo apt-get update && \
-    sudo apt-get install -y curl 
+    # if curl  doesnt exist
+    if [ -z "$(command -v "curl ")" ]
+    then
+        sudo apt-get update && \
+        sudo apt-get install -y curl 
+    fi
     curl -fsSL https://deno.land/x/install/install.sh | sh
     export PATH="$HOME/.deno/bin:$PATH"
     # archy
@@ -17,7 +21,7 @@
     # 
     # install ROS and Moveit
     # 
-    ./ros_install_noetic.sh && \
+    ./run/ros_install_noetic.sh && \
         sudo apt-get update && \
         sudo apt-get install -y \
             python3-pip \
@@ -32,18 +36,18 @@
     # check if file exists
     if [ -f "/opt/ros/noetic/setup.bash" ]
     then
-        builtin cd /opt/ros/noetic/
+        cd /opt/ros/noetic/
         source /opt/ros/noetic/setup.bash
-        builtin cd - 1>/dev/null
+        cd - 1>/dev/null
     else
         echo note: "/opt/ros/noetic/setup.bash"
     fi
 
     if [ -d "$catkin_dir/devel" ]
     then
-        builtin cd "$catkin_dir/devel"
+        cd "$catkin_dir/devel"
         source "./setup.bash"
-        builtin cd - 1>/dev/null
+        cd - 1>/dev/null
     fi
 
     # fix missing libeigenpy.so
@@ -64,12 +68,12 @@ else
     # if doesn't exist, make it
     if ! [ -d "$catkin_dir/devel" ]
     then
-        builtin cd "$catkin_dir"
+        cd "$catkin_dir"
         catkin_make
         sudo rosdep init
         rosdep update
         
         rosdep install --from-paths src --ignore-src -r -y
-        builtin cd - 1>/dev/null
+        cd - 1>/dev/null
     fi
 fi
