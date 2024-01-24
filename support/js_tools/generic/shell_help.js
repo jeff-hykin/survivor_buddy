@@ -10,19 +10,17 @@ import { capitalize, indent, toCamelCase, digitsToEnglishArray, toPascalCase, to
 export const extractEnvVarsFromShellScript = async ({ scriptPath, shellExecutable="bash", debug=false })=>{
     const shellPartEscape = (arg)=>`${arg}`.replace(`'`,`'"'"'`)
     const itemInfo = FileSystem.sync.info(scriptPath)
-    console.debug(`scriptPath is:`,scriptPath)
     const endIdentifierString = `---------------end of script ${Math.random()} -----------------`
     if (!itemInfo.isFile) {
         console.warn(`Unable to extract env vars from ${JSON.stringify(scriptPath)} because it isn't a file`)
         return {}
     } else {
         let scriptContent = FileSystem.sync.read(scriptPath)
-        console.debug(`scriptContent is:\n`,indent({ string: scriptContent }))
         const output = await run(
             shellExecutable,
             "-c",
             `
-                ${FileSystem.sync.read(scriptPath)}
+                . '${shellPartEscape(scriptPath)}'
                 
                 echo "${endIdentifierString}"
                 '${shellPartEscape(Deno.execPath)}' eval '${shellPartEscape(`console.log(JSON.stringify(Deno.env.toObject()))`)}'
