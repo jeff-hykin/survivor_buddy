@@ -16,8 +16,7 @@ export const extractEnvVarsFromShellScript = async ({ scriptPath, shellExecutabl
         console.warn(`Unable to extract env vars from ${JSON.stringify(scriptPath)} because it isn't a file`)
         return {}
     } else {
-        let scriptContent = FileSystem.sync.read(scriptPath)
-        let commandArg = `
+        const commandArg = `
             . '${shellPartEscape(scriptPath)}'
             
             echo "${endIdentifierString}"
