@@ -54,7 +54,7 @@ const updateInfo = async ()=>{
     const launchContent = await FileSystem.read(rbServerPath)
     let newContent = launchContent
     newContent = newContent.replace(/name="port" default=".*?"/, `name="port" default=${JSON.stringify(`${settings.rosbridgePortNumber}`)}`)
-    newContent = newContent.replace(/name="address" default=".*?"/, `name="port" default=${JSON.stringify(`${ipAddress}`)}`)
+    newContent = newContent.replace(/name="address" default=".*?"/, `name="address" default=${JSON.stringify(`${ipAddress}`)}`)
     newContent = newContent.replace(/<arg name="certfile" default=".*?"/, `<arg name="certfile" default=${JSON.stringify(certFile)}`)
     newContent = newContent.replace(/<arg name="keyfile" default=".*?"/, `<arg name="keyfile" default=${JSON.stringify(keyFile)}`)
     newContent = newContent.replace(/<param name="certfile" value=".*?"/, `<param name="certfile" value=${JSON.stringify(certFile)}`)
