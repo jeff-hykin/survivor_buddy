@@ -8,6 +8,7 @@ import { Console, clearAnsiStylesFrom, black, white, red, green, blue, yellow, c
 export const extractEnvVarsFromShellScript = async ({ scriptPath, shellExecutable="bash", debug=false })=>{
     const shellPartEscape = (arg)=>`${arg}`.replace(`'`,`'"'"'`)
     const itemInfo = FileSystem.sync.info(scriptPath)
+    console.debug(`scriptPath is:`,scriptPath)
     const endIdentifierString = `---------------end of script ${Math.random()} -----------------`
     if (!itemInfo.isFile) {
         console.warn(`Unable to extract env vars from ${JSON.stringify(scriptPath)} because it isn't a file`)
