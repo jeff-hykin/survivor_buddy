@@ -9,8 +9,8 @@ const { projectRoot, settingsPath, certFile, keyFile, catkinFolder, serverFolder
 
 if (FileSystem.sync.info("/opt/ros/noetic/").isFolder) {
     await withPwd("/opt/ros/noetic/", async ()=>{
-        console.debug(`FileSystem.pwd is:`,FileSystem.pwd)
-        await loadShellScript({ scriptPath: "/opt/ros/noetic/setup.bash" })
+        Deno.env.set("CATKIN_SHELL", "bash")
+        await loadShellScript({ scriptPath: "/opt/ros/noetic/setup.sh" })
     })
 }
 
@@ -19,7 +19,6 @@ if (!FileSystem.sync.info(`${catkinFolder}/devel`).isFolder) {
     console.log(`try running the install_stuff command to get it setup`)
 } else {
     await withPwd(`${catkinFolder}/devel`, async ()=>{
-        console.debug(`FileSystem.pwd is:`,FileSystem.pwd)
         await loadShellScript({ scriptPath: `${FileSystem.pwd}/setup.bash` })
     })
 }
