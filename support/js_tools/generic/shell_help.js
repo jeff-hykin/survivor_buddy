@@ -43,7 +43,7 @@ export const extractEnvVarsFromShellScript = async ({ scriptPath, shellExecutabl
 }
 
 export const loadShellScript = async ({ scriptPath, shellExecutable="bash", debug=false })=>{
-    const envObject = extractEnvVarsFromShellScript({ scriptPath, shellExecutable, debug })
+    const envObject = await extractEnvVarsFromShellScript({ scriptPath, shellExecutable, debug })
     for (const [key, value] of Object.entries(envObject)) {
         Deno.env.set(key, value)
     }
