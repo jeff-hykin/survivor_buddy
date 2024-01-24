@@ -15,7 +15,7 @@ export const extractEnvVarsFromShellScript = async ({ scriptPath, shellExecutabl
     } else {
         const output = await run(
             shellExecutable,
-            "-c"
+            "-c",
             `
                 ${FileSystem.sync.read(scriptPath)}
                 
