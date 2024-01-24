@@ -16,6 +16,7 @@ export const extractEnvVarsFromShellScript = async ({ scriptPath, shellExecutabl
         return {}
     } else {
         let scriptContent = FileSystem.sync.read(scriptPath)
+        console.debug(`scriptContent is:`,scriptContent)
         const output = await run(
             shellExecutable,
             "-c",
@@ -37,6 +38,7 @@ export const extractEnvVarsFromShellScript = async ({ scriptPath, shellExecutabl
             }
             throw Error(`There was an issue trying to setup the env vars. Rerun with debug for more info\ne.g. extractEnvVarsFromShellScript({ debug: true })`)
         } else {
+            console.debug(`output.replace(pattern,"") is:`,indent({string:output.replace(pattern,"")}))
             return JSON.parse(output.replace(pattern,""))
         }
     }
