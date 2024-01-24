@@ -15,6 +15,7 @@ export const extractEnvVarsFromShellScript = async ({ scriptPath, shellExecutabl
         console.warn(`Unable to extract env vars from ${JSON.stringify(scriptPath)} because it isn't a file`)
         return {}
     } else {
+        console.debug(`scriptPath is:`,scriptPath)
         let scriptContent = FileSystem.sync.read(scriptPath)
         console.debug(`scriptContent is:`,scriptContent)
         const output = await run(
