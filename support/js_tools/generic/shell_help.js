@@ -16,18 +16,17 @@ export const extractEnvVarsFromShellScript = async ({ scriptPath, shellExecutabl
         console.warn(`Unable to extract env vars from ${JSON.stringify(scriptPath)} because it isn't a file`)
         return {}
     } else {
-        console.debug(`scriptPath is:`,scriptPath)
+        // console.debug(`scriptPath is:`,scriptPath)
         let scriptContent = FileSystem.sync.read(scriptPath)
-        console.debug(`scriptContent is:`, indent({ string: scriptContent}))
-        let commandArg = `
-                    . '${shellPartEscape(scriptPath)}'
-                    
-                    echo "${endIdentifierString}"
-                    '${shellPartEscape(Deno.execPath)}' eval 'console.log("howdy")'
-                    '${shellPartEscape(Deno.execPath)}' eval '${shellPartEscape(`console.log(JSON.stringify(Deno.env.toObject()))`)}'
-                    echo end of deno output
-                `
-        console.debug(`commandArg is:`,"\n"+indent({string:commandArg}))
+        // console.debug(`scriptContent is:`, indent({ string: scriptContent}))
+        const commandArg = `
+            . '${shellPartEscape(scriptPath)}'
+            
+            echo "${endIdentifierString}"
+            '${shellPartEscape(Deno.execPath())}' eval '${shellPartEscape(`console.log(JSON.stringify(Deno.env.toObject()))`)}'
+            echo end of deno output
+        `
+        // console.debug(`commandArg is:`,"\n"+indent({string:commandArg}))
         let command = new Deno.Command(shellExecutable, {
             args: [
                 "-c",
@@ -50,7 +49,7 @@ export const extractEnvVarsFromShellScript = async ({ scriptPath, shellExecutabl
         //     `,
         //     Stdout(returnAsString)
         // )
-        console.debug(`output is:`,"\n"+indent({string:output}))
+        // console.debug(`output is:`,"\n"+indent({string:output}))
         const pattern = new RegExp(`([^a]|[a])*${endIdentifierString}`)
         if (!output.match(pattern)) {
             if (debug) {
@@ -61,7 +60,6 @@ export const extractEnvVarsFromShellScript = async ({ scriptPath, shellExecutabl
             }
             throw Error(`There was an issue trying to setup the env vars. Rerun with debug for more info\ne.g. extractEnvVarsFromShellScript({ debug: true })`)
         } else {
-            console.debug(`output.replace(pattern,"") is:`,indent({string:output.replace(pattern,"")}))
             return JSON.parse(output.replace(pattern,""))
         }
     }
