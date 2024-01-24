@@ -3,19 +3,13 @@
 # 
     # 
     # install deno
-    # 
+    #
+    sudo apt-get update && \
+    sudo apt-get install -y curl 
     curl -fsSL https://deno.land/x/install/install.sh | sh
     export PATH="$HOME/.deno/bin:$PATH"
-    deno install -A https://deno.land/x/denoliver/mod.ts
     # archy
     deno install -n archy -A https://deno.land/x/archaeopteryx/mod.ts # version 1.0.7
-
-    # 
-    # install stuff for a nodejs version
-    # 
-    sudo apt-get update && \
-    sudo apt-get install -y curl && \
-        curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 
     echo "disabling firewall"
     sudo ufw disable
@@ -31,18 +25,34 @@
             python3-rosdep \
             ros-noetic-moveit \
             ros-noetic-moveit-commander \
-            ros-noetic-rosserial \
-            nodejs \
-            npm
-
-    # install http-server
-    npm install --global http-server
-
-
+            ros-noetic-rosserial
 # 
-# source stuff
+# setup env vars
 # 
-    . ./.env
+    # check if file exists
+    if [ -f "/opt/ros/noetic/setup.bash" ]
+    then
+        builtin cd /opt/ros/noetic/
+        source /opt/ros/noetic/setup.bash
+        builtin cd - 1>/dev/null
+    else
+        echo note: "/opt/ros/noetic/setup.bash"
+    fi
+
+    if [ -d "$catkin_dir/devel" ]
+    then
+        builtin cd "$catkin_dir/devel"
+        source "./setup.bash"
+        builtin cd - 1>/dev/null
+    fi
+
+    # fix missing libeigenpy.so
+    if [ -z "$LD_LIBRARY_PATH" ]
+    then
+        export LD_LIBRARY_PATH="/opt/ros/noetic/lib/x86_64-linux-gnu/:/opt/ros/noetic/lib/"
+    else
+        export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/opt/ros/noetic/lib/x86_64-linux-gnu/:/opt/ros/noetic/lib/"
+    fi
 # 
 # catkin make if needed
 # 
