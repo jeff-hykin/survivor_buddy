@@ -19,17 +19,18 @@ export const extractEnvVarsFromShellScript = async ({ scriptPath, shellExecutabl
         console.debug(`scriptPath is:`,scriptPath)
         let scriptContent = FileSystem.sync.read(scriptPath)
         console.debug(`scriptContent is:`, indent({ string: scriptContent}))
-        let command = new Deno.Command(shellExecutable, {
-            args: [
-                "-c",
-                `
+        let commandArg = `
                     . '${shellPartEscape(scriptPath)}'
                     
                     echo "${endIdentifierString}"
                     '${shellPartEscape(Deno.execPath)}' eval 'console.log("howdy")'
                     '${shellPartEscape(Deno.execPath)}' eval '${shellPartEscape(`console.log(JSON.stringify(Deno.env.toObject()))`)}'
                     echo end of deno output
-                `,
+                `
+        let command = new Deno.Command(shellExecutable, {
+            args: [
+                "-c",
+                commandArg,
             ],
             stdout: 'piped',
         })
