@@ -1,6 +1,6 @@
 <launch>
   <arg name="port" default="9093" />
-  <arg name="port" default="10.229.37.11" />
+  <arg name="address" default="10.229.37.11" />
   <arg name="ssl" default="true" />
   <arg name="certfile" default="/Users/jeffhykin/repos/fornix/survivor_buddy/support/cert.pem"/>
   <arg name="keyfile" default="/Users/jeffhykin/repos/fornix/survivor_buddy/support/key.pem" />
