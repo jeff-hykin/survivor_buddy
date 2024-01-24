@@ -1,5 +1,6 @@
+/support/catkin_ws/build/*
 /support/catkin_ws/devel/*
-/support/catkin_ws/CMakeLists.txt
+/support/catkin_ws/src/CMakeLists.txt
 
 # Logs
 logs
