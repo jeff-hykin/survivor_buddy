@@ -10,10 +10,18 @@
         sudo apt-get update && \
         sudo apt-get install -y curl 
     fi
-    curl -fsSL https://deno.land/x/install/install.sh | sh
-    export PATH="$HOME/.deno/bin:$PATH"
-    # archy
-    deno install -n archy -A https://deno.land/x/archaeopteryx/mod.ts # version 1.0.7
+    # if deno doesnt exist
+    if [ -z "$(command -v "deno")" ]
+    then
+        curl -fsSL https://deno.land/x/install/install.sh | sh
+        export PATH="$HOME/.deno/bin:$PATH"
+    fi
+    # if archy doesnt exist
+    if [ -z "$(command -v "archy")" ]
+    then
+        # archy
+        deno install -n archy -A https://deno.land/x/archaeopteryx/mod.ts # version 1.0.7
+    fi
 
     echo "disabling firewall"
     sudo ufw disable
@@ -22,15 +30,15 @@
     # install ROS and Moveit
     # 
     ./run/ros_install_noetic.sh <<< '2
-    ' && \
-        sudo apt-get update && \
-        sudo apt-get install -y \
-            python3-pip \
-            ros-noetic-rosbridge-suite \
-            python3-rosdep \
-            ros-noetic-moveit \
-            ros-noetic-moveit-commander \
-            ros-noetic-rosserial
+    '
+    sudo apt-get update && \
+    sudo apt-get install -y \
+        python3-pip \
+        ros-noetic-rosbridge-suite \
+        python3-rosdep \
+        ros-noetic-moveit \
+        ros-noetic-moveit-commander \
+        ros-noetic-rosserial
 # 
 # setup env vars
 # 
