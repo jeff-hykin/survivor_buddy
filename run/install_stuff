@@ -88,3 +88,4 @@ else
         cd - 1>/dev/null
     fi
 fi
+pip install blissful_basics
