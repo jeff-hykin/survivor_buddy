@@ -24,11 +24,11 @@ from cv_bridge import CvBridge, CvBridgeError
 from geometry_msgs.msg import TwistStamped
 from moveit_msgs.msg import DisplayTrajectory
 from sensor_msgs.msg import CompressedImage, Image
-from blissful_basics import singleton, LazyDict, Warningsimport numpy
+from blissful_basics import singleton, LazyDict, Warnings
 # Warnings.disable() # uncomment if you want to disable all warnings
 
 sys.path.append(os.path.dirname(__file__))
-from helper_tools import JointPositions, time_since_prev, clip_value
+from helper_tools import JointPositions, time_since_prev, clip_value, convert_args
 
 # NOTE: you can edit anything, so if you don't like the structure just change it
 
@@ -44,6 +44,7 @@ config = LazyDict(
 
 class Robot:
     status = LazyDict(
+        frame_count=0,
         has_initialized=False,
         # EDIT ME, add stuff to your robot status
         # (you dont have to, but it should be helpful)
@@ -88,10 +89,13 @@ class Robot:
     
     def when_video_chunk_received(chunk):
         numpy_image_array = cv2.imdecode(numpy.fromstring(chunk.data, np.uint8), cv2.IMREAD_COLOR)
+        # NOTE: this is not an rgb image ... its a bgr image because openCV is dumb like that
         
         # 
         # Edit me
         # 
+        Robot.status.frame_count += 1
+        print(f'''frame: {Robot.status.frame_count}, I got a chunk of video: {numpy_image_array.shape}''')
     
     def setup_all_the_boring_boilerplate_stuff():
         # NOTE: read this function if you want to know how ROS actually works
