@@ -12,11 +12,12 @@ The end goal is have the survivor buddy react to a handful of gesture inputs fro
 ### Overview of Steps
 
 1. Get ROS + Rviz running
-    1. ROS is linux-only (effectively debian only) so you'll need to dual boot or install a VM
-        - Well... unless you have a M1 mac (like me) where there's basically only two options
+    1. The project uses ROS noetic (e.g. ROS 1), and ROS is linux-only.<br>So unless you're one of the 0.5% who daily drive linux, you'll need to dual boot or install a VM.
+        - Well... unless you have a M1 mac (like me) where its a bit more challeging than that.<br>There's basically only two options
             - 1. pay for [Parallels](https://www.parallels.com/)
             - 2. find/get a not-M1 Linux PC 
             - Note: On M1 I have tried docker, I have tried virtualbox, I have tried building from source. All of combined wasted about 2 weeks of my life.
+        - If you want to try docker, go for it. I'd love if someone made a reliable docker setup for this project.
     2. Once you have linux (preferably Ubuntu 20.04), there's an installer script that should handle installing ros for you. (See the "how do actuall do it" below)
     3. If you hit errors or have a hard time setting it up, I have a 32Gb bootable flashdrive you can clone that has everything installed. 
 2. After Linux/ROS/Rviz are installed, you can start testing your code in Rviz
