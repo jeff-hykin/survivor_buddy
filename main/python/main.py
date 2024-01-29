@@ -92,16 +92,31 @@ class Robot:
         # NOTE: this is not an rgb image ... its a bgr image because openCV is dumb like that
         
         # 
-        # Edit me
+        # Edit me (remove the if True and put whatever you want)
         # 
-        print(f'''numpy_image_array.shape = {numpy_image_array.shape}''')
-        
-        # uncomment the following to start an interactive python terminal right here
-        # (good for debugging and playing with variables)
-        # import code
-        # code.interact(local={**globals(),**locals()})
-        Robot.status.frame_count += 1
-        print(f'''frame: {Robot.status.frame_count}, I got a chunk of video: {numpy_image_array.shape}''')
+        if True:
+            # example of incoming data
+            print(f'''numpy_image_array.shape = {numpy_image_array.shape}''')
+            
+            # example movement:
+                # Robot.move_towards_positions(
+                #     JointPositions(
+                #         torso_joint=0, # degrees not radians
+                #         neck_swivel=0, # degrees not radians
+                #         head_tilt=0, # degrees not radians
+                #         head_nod=0, # degrees not radians
+                #     )
+                # )
+            
+            # uncomment the following to start an interactive python terminal right here
+            # (good for debugging and playing with variables)
+            # import code
+            # code.interact(local={**globals(),**locals()})
+            Robot.status.frame_count += 1
+            print(f'''frame: {Robot.status.frame_count}, I got a chunk of video: {numpy_image_array.shape}''')
+            
+            
+            
     
     def setup_all_the_boring_boilerplate_stuff():
         # NOTE: read this function if you want to know how ROS actually works
