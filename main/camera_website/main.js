@@ -9,44 +9,71 @@ import { fadeAfterNoInteraction } from "./helpers/opacity_helper.js" // this is 
 // Summary
 // 
 // 
-    // 0. TLDR: You'll care about the "Events" section the most
-    //    but I need to go over some other things, so hold on
-    //    
-    // 1. Aside from adding a library, you probably won't want to edit the index.html
-    //    Because, everything in <body> gets replaced. This file (the "Main Code" section near the bottom)
-    //    replaces the <body>.
-    //    (I'll come back to this)
+    // 1. Let me quickstart you 
+    //    A. run the `run/1_camera_server` and open up the URL
+    //       on a desktop/laptop browser
+    //    B. Open up the console of that browser
+    //       (tutorial here: https://appuals.com/open-browser-console/ )
+    //    C. Type `face.actions.showHappy()` and press enter
+    //       then type `face.actions.relax()` and press enter
+    //    D. You should see some stuff on the screen!
+    //       Note there are other actions like .showConfusion() and .showScared()
     // 
-    // 2. The Events section
-    //    You've got access to at least 
+    // 2. Tools!
     // 
-    //    So if want to add something to the <body>, edit the "Main Code" section like this:
-    //        let myThing = html`<div>Howdy Howdy Howdy</div>`
-    //        
-    //        document.body = html`
-    //             <body>
-    //                 ${myThing}
-    //             </body>
-    //        ` 
-    //    
-    //    If you want to add an html element to the body, its best to do it in that section
-    // 2. You can paste html in javascript, for example:
-    //         var h1Element = html`
-    //             <h1 style="background: white;">
-    //                 Howdy, here's a random number: ${Math.random()}
-    //             </h1> 
-    //         `
-    //         document.body.append(h1Element)
-    //         // "Howdy" will now show up in the body (if you do it at the very bottom of the file)
-    // 3. The Events section at the very boddy is a list of functions.
+    //    Three tools you should know about
+    //    A. showToast(`Howdy`) is your friend. It makes a little pop up with the message
+    //    B. logMessage(`Howdy`) is also your friend, because console.log() doesn't 
+    //       work on a phone but logMessage does
+    //    C. You can play with any variable in the browser console if you do: 
+    //          window.theVariable = theVariable
+    //          // examples are at the very bottom
+    //      It helps a lot for debugging on a desktop/laptop
+    //     
+    // 3. You need to edit the "Events" section towards the bottom
+    // 
+    //    The section is a list of functions
     //    Each function will be called when a different event happens
-    //    (its not magic either, you can find the code that calls those functions)
+    //    (its not magic either, you can find the code that calls those functions in this file)
     //    
+    //    This is where you can trigger stuff like `face.action.showHappy()`
+    // 
+    // 4. If you want to add your own HTML elements to the page
+    //    
+    //    A. There's a weird thing I need to tell you about first.
+    //       Normally we would edit the index.html. However,
+    //       thats not the case for this project, because there is code
+    //       in this file that replaces the <body> tag.
+    //       So if you want to add html elements, you'll need to 
+    //       edit the "Elements" section in this file.
+    // 
+    //    B. You can write html inside this file like so:
+    //          let yourElement = html`
+    //              <div>I'm html</div>
+    //          `
+    // 
+    //    C. If you see some stack overflow / ChatGPT answers that look like this:
+    //           <div>
+    //              <input id="my-input" placeholder="howdy" >
+    //           </div>
+    //           
+    //           let element = document.getElementById("my-input")
+    //  
+    //           // or: let element = document.querySelector("#my-input")
+    //           // or let element = $("#my-input")
+    // 
+    //       THROW THE ANSWER IN THE TRASH
+    //       Replace it with:
+    // 
+    //          let element = html`<input placeholder="howdy">`
+    //          html`
+    //              <div>
+    //                  ${element}
+    //              </div>
+    //          `
 
 // 
-// 
-// Initialize Globals
-// 
+// Globals
 // 
     const parameters = {
         defaultPort: 9093,
@@ -66,15 +93,17 @@ import { fadeAfterNoInteraction } from "./helpers/opacity_helper.js" // this is 
 // Custom Elements
 // 
     function MessageLog({ ...props }) {
+        // note all the <br>'s are to help with viewing on mobile 
         return MessageLog.element = html`
             <span
                 style="padding: 1rem; position: fixed; right: 0; top: 0; height: 100vh; overflow: auto; width: 15rem; background-color: rgba(0,0,0,0.18); border-left: 2px gray solid; box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3); z-index: 998"
                 >
+                <br><br><br><br><br><br><br><br><br><br>
                 (message log)
             </span>
         `
     }
-    MessageLog.showMessage = function (...messages) {
+    MessageLog.logMessage = function (...messages) {
         if (MessageLog.element) {
             const message = messages.join(" ")
             const escapedText = new Option(message).innerHTML
@@ -118,7 +147,7 @@ import { fadeAfterNoInteraction } from "./helpers/opacity_helper.js" // this is 
                     RosConnecter.setupRosIfNeeded()
                     
                     if (!navigator.mediaDevices) {
-                        MessageLog.showMessage(`Error: check the URL<br>Make sure it has "https" and not "http"`)
+                        MessageLog.logMessage(`Error: check the URL<br>Make sure it has "https" and not "http"`)
                     } else {
                         try {
                             cameraStream = await navigator.mediaDevices.getUserMedia({
@@ -136,7 +165,7 @@ import { fadeAfterNoInteraction } from "./helpers/opacity_helper.js" // this is 
                                 canvas.setAttribute("height", height)
                             }
                         } catch (error) {
-                            MessageLog.showMessage(`Looks like there was an issue connecting to the camera. Make sure this browser can actually connect to your camera (for example try logging into Zoom and using "Your Room" and try turning on the camera)`)
+                            MessageLog.logMessage(`Looks like there was an issue connecting to the camera. Make sure this browser can actually connect to your camera (for example try logging into Zoom and using "Your Room" and try turning on the camera)`)
                             throw error
                         }
 
@@ -161,7 +190,7 @@ import { fadeAfterNoInteraction } from "./helpers/opacity_helper.js" // this is 
                             source.connect(recorder)
                             recorder.connect(audioCtx.destination)
                         } catch (error) {
-                            MessageLog.showMessage(`Looks like there was an issue connecting to the microphone. Make sure this browser can actually connect to your camera (for example try logging into Zoom and using "Your Room" and try turning on the camera)`)
+                            MessageLog.logMessage(`Looks like there was an issue connecting to the microphone. Make sure this browser can actually connect to your camera (for example try logging into Zoom and using "Your Room" and try turning on the camera)`)
                             throw error
                         }
                     }
@@ -189,10 +218,10 @@ import { fadeAfterNoInteraction } from "./helpers/opacity_helper.js" // this is 
         function takePicture() {
             if (!rosTopics.imageTopic) {
                 if (RosConnecter.rosIsSetup) {
-                    MessageLog.showMessage("Trying to take a picture but rosTopics.imageTopic is null")
+                    MessageLog.logMessage("Trying to take a picture but rosTopics.imageTopic is null")
                 }
             } else {
-                // MessageLog.showMessage("Trying to take a picture")
+                // MessageLog.logMessage("Trying to take a picture")
                 canvas.width = parameters.videoWidth
                 canvas.height = height
 
@@ -276,12 +305,12 @@ import { fadeAfterNoInteraction } from "./helpers/opacity_helper.js" // this is 
                         ros.on("connection", function () {
                             console.log("Connected to websocket server.")
                             RosConnecter.rosIsSetup = true
-                            MessageLog.showMessage("Success!")
+                            MessageLog.logMessage("Success!")
                         })
 
                         ros.on("error", function (error) {
                             console.log("Error connecting to websocket server: ", error)
-                            MessageLog.showMessage(`1. Make sure <code>roslaunch rb_server.launch</code> is running<br>2. Try opening this in a new tab:<br><a href="https://${baseValue}">https://${baseValue}</a><br>3. Click Advanced -> Accept Risk and Continue<br>4.Then re-run this test<br>`)
+                            MessageLog.logMessage(`1. Make sure <code>roslaunch rb_server.launch</code> is running<br>2. Try opening this in a new tab:<br><a href="https://${baseValue}">https://${baseValue}</a><br>3. Click Advanced -> Accept Risk and Continue<br>4.Then re-run this test<br>`)
                             showErrorToast(`Didn't Connect to socket\nSee log ->\n\n(Click to make this go away)`, {position: 'left',})
                         })
 
@@ -292,7 +321,7 @@ import { fadeAfterNoInteraction } from "./helpers/opacity_helper.js" // this is 
                         
                         afterRosConnected(ros)
                     } catch (error) {
-                        MessageLog.showMessage(`error connecting to ROS`)
+                        MessageLog.logMessage(`error connecting to ROS`)
                         console.error(`The error below is probably because of a url issue\nThe url given to ROS was: ${url}`)
                         console.error(error)
                     }
@@ -333,7 +362,7 @@ import { fadeAfterNoInteraction } from "./helpers/opacity_helper.js" // this is 
     
 // 
 // 
-// Main Code
+// Elements
 // 
 // 
     let face = html`<Face height=500 width=3000 style="position: fixed; bottom: 0rem; right: calc(50vw); transform: translateX(50%);" />`
@@ -363,7 +392,7 @@ import { fadeAfterNoInteraction } from "./helpers/opacity_helper.js" // this is 
         baseDelaySeconds: 5, 
         opacityLossPerSecond: 0.5,
         callback: function(newOpacity) {
-            // reduce the opacity once a certain amount of no-interaction time
+            // reduce the opacity after a certain amount of no-interaction time
             // (newOpacity) will get smaller and smaller with each function call
             controls.style.opacity = newOpacity
             MessageLog.element.style.opacity = newOpacity
@@ -386,7 +415,7 @@ import { fadeAfterNoInteraction } from "./helpers/opacity_helper.js" // this is 
 
         let showOnWebpage = false
         if (showOnWebpage) {
-            MessageLog.showMessage(JSON.stringify(data))
+            MessageLog.logMessage(JSON.stringify(data))
         }
     }
     
@@ -422,7 +451,7 @@ import { fadeAfterNoInteraction } from "./helpers/opacity_helper.js" // this is 
             try {
                 data = JSON.parse(message.data)
             } catch (error) {
-                MessageLog.showMessage(`error parsing message json`)
+                MessageLog.logMessage(`error parsing message json`)
             }
             afterReceiveBackendMessage(data)
         })
@@ -433,7 +462,7 @@ import { fadeAfterNoInteraction } from "./helpers/opacity_helper.js" // this is 
 // 
     // (global variables so you can play with them in the browser console)
     window.face           = face
-    window.showMessage    = MessageLog.showMessage
+    window.logMessage     = MessageLog.logMessage
     window.showToast      = showToast
     window.showErrorToast = showErrorToast
     window.ROSLIB         = ROSLIB
