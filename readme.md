@@ -16,7 +16,7 @@ The end goal is have the survivor buddy react to a handful of gesture inputs fro
 3. After Linux/ROS/Rviz are installed, you can start testing your code in Rviz
 4. Once your code is working, meet with me in person so we can push the code to survivor buddy and see if it works on a real robot
 
-### How to actually do the thing
+## How to actually do the thing
 
 - Getting Linux
     - Note: if this step ends up being a problem for you, I have a pre-setup bootable flash drive you can clone.
@@ -46,9 +46,9 @@ The end goal is have the survivor buddy react to a handful of gesture inputs fro
     4. type in some test positions and see if bot moves inside of Rviz
 - Run Survivor Buddy Code:
     1. cd into the folder `cd ~/survivor_buddy`
-    2. start the camera server `run/1_camera_server`
+    2. In your first terminal start the camera server `run/1_camera_server`
         - It will print out the **camera's URL**
-    3. start the ros bridge server `run/2_ros_bridge_server` (images will get sent to the bridge)
+    3. In a second terminal start the ros bridge server `run/2_ros_bridge_server` (images will get sent to the bridge)
     4. get a device with a camera
         - The "device" can be a phone, another labtop, or even the same laptop (the laptop that is running the camera server and bridge)
         - Just make sure the device is on the same wifi as the laptop running the server
@@ -56,35 +56,17 @@ The end goal is have the survivor buddy react to a handful of gesture inputs fro
             - You're probably going to get a "WARNING" page that looks [like this](https://github.com/jeff-hykin/survivor_buddy/blob/master/documentation/first_error.jpg)
                 - click "more details" (it should look [like this](https://github.com/jeff-hykin/survivor_buddy/blob/master/documentation/first_error_bypass.jpg))
                 - then click "explore anyways" to get to the site
-            - Try switching the camera toggle
-                - you'll probably see another message (right side of the screen) that says something about being unable to connect to the socket
-                - Click on the URL in the log
-                - You'll get the "WARNING" page again
-                - Click details -> explore anyways again
-                - then refresh the page
-            - Now that both sites are approved, you should be able to 
-        - click the "Connect to ROSbridge Server"
-        - if success, toggle the camera switch to the "on" position
-    5. start rviz `run/3_move_it`
-    6. run the python code `. ./.env && python ./main/python/main.py --example_arg 'Im an example'`
-    7. Hopefully when your python code performs robot actions, you can see it executed on Rviz
-- Deploy to the robot
-    1. the start is similar to the previous instructions:
-        1. start the camera server `run/1_camera_server`
-            - It will print out the **camera's URL**
-        2. start the ros bridge server `run/2_ros_bridge_server`
-        3. get a device with a camera
-            - The "device" can be a phone, another labtop, or even the same laptop (the laptop that is running the server)
-            - Just make sure the device is on the same wifi as the laptop running the server
-            - open up a browser on the device
-            - open up the **camera's URL** that was given above
-                - TODO/FIXME: explain the websocket issue on this button
-            - click the "Connect to ROSbridge Server"
-            - if success, toggle the camera switch to the "on" position
-    2. Plug in survivor_buddy's power cord
-    3. Plug in survivor_buddy's USB cable into your laptop
-    4. Make sure it is being detected by running the command `ls /dev/ttyUSB*`, you should see /dev/ttyUSB0 as the output of the previous command.
-    5. To connect try `run/4_ros_serial`
-    6. To test that the microcontroller is receiving commands, run `python ./main/python/helper_scripts/sb_test_joint_positions.py`
-    7. Try run the python code `python ./main/python/main.py --send_to_rviz False`
-    8. Record a video of your gestures and survivor_buddy's reactions
+            - The view should now look something [like this](https://github.com/jeff-hykin/survivor_buddy/blob/master/documentation/intial_screen.png)
+            - Try switching the camera toggle, and follow the instructions in the log
+            - Now that both sites are approved, you should be able to click the "Connect to ROSbridge Server"
+    5. In a third terminal start rviz `run/3_move_it`
+    6. In a fourth terminal run the python code. Either `run/4_python` or run `. ./.env && python ./main/python/main.py`
+    7. The default python code should print out stuff about the incoming audio/video data
+    8. If you edit the python code (the "when_video_chunk_received" and "when_audio_chunk_received" in `main/python/main.py`), you should be able to use `Robot.move_towards_positions()` to make the robot in rviz move around.
+- Deploy to the physical robot
+    1. Plug in survivor_buddy's USB cable into your laptop
+    2. Make sure it is being detected by running the command `ls /dev/ttyUSB*`, you should see /dev/ttyUSB0 as the output of the previous command.
+    3. In a terminal run `run/5_ros_serial`
+    4. To test that the microcontroller is receiving commands, in another terminal run `. ./.env && python ./main/python/helper_scripts/physical_test.py`
+    5. Now repeat the steps of running on rviz (4 terminals) BUT, this time when you run your python do:<br>`. ./.env && python ./main/python/main.py --send_to_rviz False`
+    7. Record a video of your interactions with survivor buddy
