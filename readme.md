@@ -43,17 +43,16 @@ The end goal is have the survivor buddy react to a handful of gesture inputs fro
     1. cd into the folder, `cd ~/survivor_buddy`
     2. start rviz, `run/3_move_it`
     3. run `. ./.env && python ./main/python/helper_scripts/rviz_test.py`
-    4. type in some test commands and see if bot moves inside of Rviz
+    4. type in some test positions and see if bot moves inside of Rviz
 - Run Survivor Buddy Code:
     1. cd into the folder `cd ~/survivor_buddy`
     2. start the camera server `run/1_camera_server`
         - It will print out the **camera's URL**
-    3. start the ros bridge server `run/2_ros_bridge_server`
+    3. start the ros bridge server `run/2_ros_bridge_server` (images will get sent to the bridge)
     4. get a device with a camera
-        - The "device" can be a phone, another labtop, or even the same laptop (the laptop that is running the server)
+        - The "device" can be a phone, another labtop, or even the same laptop (the laptop that is running the camera server and bridge)
         - Just make sure the device is on the same wifi as the laptop running the server
-        - open up a browser on the device
-        - open up the **camera's URL** that was printed above
+        - on the device, open up that **camera's URL** from step 2
             - You're probably going to get a "WARNING" page
                 - click "more details"
                 - then click "explore anyways" to get to the site
