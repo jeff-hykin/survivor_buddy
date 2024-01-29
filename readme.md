@@ -42,7 +42,7 @@ The end goal is have the survivor buddy react to a handful of gesture inputs fro
 - Test Rviz
     1. cd into the folder, `cd ~/survivor_buddy`
     2. start rviz, `run/3_move_it`
-    3. run `. .env;python ./main/python/helper_scripts/sb_test_joint_positions.py`
+    3. run `. ./.env && python ./main/python/helper_scripts/sb_test_joint_positions.py`
     4. type in some test commands and see if bot moves inside of Rviz
 - Run Survivor Buddy Code:
     1. cd into the folder `cd ~/survivor_buddy`
