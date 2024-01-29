@@ -53,8 +53,8 @@ The end goal is have the survivor buddy react to a handful of gesture inputs fro
         - The "device" can be a phone, another labtop, or even the same laptop (the laptop that is running the camera server and bridge)
         - Just make sure the device is on the same wifi as the laptop running the server
         - on the device, open up that **camera's URL** from step 2
-            - You're probably going to get a "WARNING" page
-                - click "more details"
+            - You're probably going to get a "WARNING" page that looks [like this](https://github.com/jeff-hykin/survivor_buddy/blob/master/documentation/first_error.jpg)
+                - click "more details" (it should look [like this](https://github.com/jeff-hykin/survivor_buddy/blob/master/documentation/first_error_bypass.jpg))
                 - then click "explore anyways" to get to the site
             - Try switching the camera toggle
                 - you'll probably see another message (right side of the screen) that says something about being unable to connect to the socket

@@ -1,9 +1,9 @@
 <launch>
   <arg name="port" default="9093" />
-  <arg name="address" default="10.229.229.32" />
+  <arg name="address" default="10.229.212.146" />
   <arg name="ssl" default="true" />
-  <arg name="certfile" default="/home/dolly/survivor_buddy/support/cert.pem"/>
-  <arg name="keyfile" default="/home/dolly/survivor_buddy/support/key.pem" />
+  <arg name="certfile" default="/Users/jeffhykin/repos/fornix/survivor_buddy/support/cert.pem"/>
+  <arg name="keyfile" default="/Users/jeffhykin/repos/fornix/survivor_buddy/support/key.pem" />
 
   <arg name="retry_startup_delay" default="5" />
 
@@ -15,8 +15,8 @@
 
   <group if="$(arg ssl)">
     <node name="rosbridge_websocket" pkg="rosbridge_server" type="rosbridge_websocket" output="screen">
-      <param name="certfile" value="/home/dolly/survivor_buddy/support/cert.pem" />
-      <param name="keyfile" value="/home/dolly/survivor_buddy/support/key.pem" />
+      <param name="certfile" value="/Users/jeffhykin/repos/fornix/survivor_buddy/support/cert.pem" />
+      <param name="keyfile" value="/Users/jeffhykin/repos/fornix/survivor_buddy/support/key.pem" />
       <param name="authenticate" value="$(arg authenticate)" />
       <param name="port" value="$(arg port)"/>
       <param name="address" value="$(arg address)"/>

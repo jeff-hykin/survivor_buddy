@@ -96,18 +96,24 @@ import { fadeAfterNoInteraction } from "./helpers/opacity_helper.js" // this is 
         // note all the <br>'s are to help with viewing on mobile 
         return MessageLog.element = html`
             <span
-                style="padding: 1rem; position: fixed; right: 0; top: 0; height: 100vh; overflow: auto; width: 15rem; background-color: rgba(0,0,0,0.18); border-left: 2px gray solid; box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3); z-index: 998"
+                style="padding: 1rem; position: fixed; right: 0; top: 0; height: 60vh; overflow: auto; width: 21rem; background-color: rgba(0,0,0,0.18); color: white; border-left: 2px gray solid; border-bottom: 2px gray solid; box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3); z-index: 1;"
                 >
-                <br><br><br><br><br><br><br><br><br><br>
                 (message log)
             </span>
         `
+    }
+    MessageLog.logHtml = function (...messages) {
+        if (MessageLog.element) {
+            const message = messages.join(" ")
+            MessageLog.element.innerHTML += `<br>...<br>${message}`
+            MessageLog.element.scrollTop = MessageLog.element.scrollHeight
+        }
     }
     MessageLog.logMessage = function (...messages) {
         if (MessageLog.element) {
             const message = messages.join(" ")
             const escapedText = new Option(message).innerHTML
-            MessageLog.element.innerHTML += `<br>...<br>...<br>${escapedText.replace(/\n/g,"<br>")}`
+            MessageLog.element.innerHTML += `<br>...<br>${escapedText.replace(/\n/g,"<br>")}`
             MessageLog.element.scrollTop = MessageLog.element.scrollHeight
         }
     }
@@ -147,7 +153,7 @@ import { fadeAfterNoInteraction } from "./helpers/opacity_helper.js" // this is 
                     RosConnecter.setupRosIfNeeded()
                     
                     if (!navigator.mediaDevices) {
-                        MessageLog.logMessage(`Error: check the URL<br>Make sure it has "https" and not "http"`)
+                        MessageLog.logMessage(`Error: check the URL\nMake sure it has "https" and not "http"`)
                     } else {
                         try {
                             cameraStream = await navigator.mediaDevices.getUserMedia({
@@ -257,8 +263,8 @@ import { fadeAfterNoInteraction } from "./helpers/opacity_helper.js" // this is 
     // Singleton component
     function RosConnecter() {
         try {
-            const ipAddressInput = html`<input type="text" placeholder="IP Address" value=${"" + window.location.hostname} />`
-            const portInput = html`<input type="text" placeholder="Port" value="${parameters.defaultPort}" />`
+            const ipAddressInput = html`<input type="text" placeholder="IP Address" value=${"" + window.location.hostname} color=white />`
+            const portInput = html`<input type="text" placeholder="Port" value="${parameters.defaultPort}" color=white />`
             const connectButton = html`
                 <button class="btn-large waves-effect waves-light" style="margin-top: 1rem; z-index: 999;">
                     Connect to ROSbridge Server
@@ -310,7 +316,7 @@ import { fadeAfterNoInteraction } from "./helpers/opacity_helper.js" // this is 
 
                         ros.on("error", function (error) {
                             console.log("Error connecting to websocket server: ", error)
-                            MessageLog.logMessage(`1. Make sure <code>roslaunch rb_server.launch</code> is running<br>2. Try opening this in a new tab:<br><a href="https://${baseValue}">https://${baseValue}</a><br>3. Click Advanced -> Accept Risk and Continue<br>4.Then re-run this test<br>`)
+                            MessageLog.logHtml(`1. Make sure <code>roslaunch rb_server.launch</code> is running<br>2. Try opening this in a new tab:<br><a href="https://${baseValue}">https://${baseValue}</a><br>3. Click Advanced -> Accept Risk and Continue<br>4.Then re-run this test<br>`)
                             showErrorToast(`Didn't Connect to socket\nSee log ->\n\n(Click to make this go away)`, {position: 'left',})
                         })
 
@@ -365,23 +371,21 @@ import { fadeAfterNoInteraction } from "./helpers/opacity_helper.js" // this is 
 // Elements
 // 
 // 
-    let face = html`<Face height=500 width=3000 style="position: fixed; bottom: 0rem; right: calc(50vw); transform: translateX(50%);" />`
+    let face = html`<Face height=500 width=3000 style="position: fixed; top: 0rem; right: calc(50vw); transform: translateX(50%);" />`
     let controls = html`
         <div
-            style="display: flex; position: relative; flex-direction: column; width: 26rem; transform: scale(0.8) translate(-13%, -13%); padding: 2rem; margin: 1rem; border-radius: 12px; background: white; transition: all 0.2s ease-in-out 0s;"
+            style="display: flex; position: fixed; bottom: 0rem; right: 0; flex-direction: column; width: 26rem; transform: scale(0.8) translate(17%, 18%); padding: 2rem; margin: 1rem; border-radius: 12px; background-color: rgba(0,0,0,0.18); color: white; transition: all 0.2s ease-in-out 0s; z-index: 2; border-radius: 0;"
             >
             <CameraSwitch></CameraSwitch>
             <RosConnecter></RosConnecter>
         </div>
     `
     document.body = html`
-        <body>
+        <body style="background: #4b5e6b">
             ${face}
             
-            ${controls}
-            
-            <br />
             <MessageLog></MessageLog>
+            ${controls}
         </body>
     `
 
