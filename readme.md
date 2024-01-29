@@ -22,7 +22,7 @@ The end goal is have the survivor buddy react to a handful of gesture inputs fro
 - Make a github repo
     1. Click the green "Use Template" button in the top-right-ish of this screen
     2. MAKE IT PRIVATE [tutorial](https://stackoverflow.com/questions/57836411/how-can-i-switch-a-public-repo-to-private-and-vice-versa-on-github)
-    3. Copy down the url of your repo for a later step (e.g. my url is https://github.com/jeff-hykin/survivor_buddy)
+    3. Copy down the url of your repo for a later step (ex: my url is https://github.com/jeff-hykin/survivor_buddy)
 - Getting Linux
     - Note: if this step ends up being a problem for you, I have a pre-setup bootable flash drive you can clone.
     - We are using ROS noetic (e.g. ROS 1) so you're probably going to want to install Ubuntu 20.04
