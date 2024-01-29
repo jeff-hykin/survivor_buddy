@@ -76,13 +76,13 @@ import { fadeAfterNoInteraction } from "./helpers/opacity_helper.js" // this is 
 // Globals
 // 
     const parameters = {
-        defaultPort: 9093,
-        audioBufferSize: 2048,
-        videoWidth: 640,
-        videoHeight: 420,
         frameSendRate: 2000, // 200 means it sends a frame every 200ms (5fps)
                             // NOTE: if this is too fast it can overwhelm the python code!
                             //       make number smaller if python is getting overloaded 
+        audioBufferSize: 2048,
+        defaultPort: 9093,
+        videoWidth: 640,
+        videoHeight: 420,
     }
     const rosTopics = {
         audioTopic: null,
@@ -316,7 +316,7 @@ import { fadeAfterNoInteraction } from "./helpers/opacity_helper.js" // this is 
 
                         ros.on("error", function (error) {
                             console.log("Error connecting to websocket server: ", error)
-                            MessageLog.logHtml(`1. Make sure <code>roslaunch rb_server.launch</code> is running<br>2. Try opening this in a new tab:<br><a href="https://${baseValue}">https://${baseValue}</a><br>3. Click Advanced -> Accept Risk and Continue<br>4.Then re-run this test<br>`)
+                            MessageLog.logHtml(`1. Make sure <code>run/2_ros_bridge</code> is running<br>2. Try opening this in a new tab:<br><a href="https://${baseValue}">https://${baseValue}</a><br>3. Click Advanced -> Accept Risk and Continue<br>4.Then re-run this test<br>`)
                             showErrorToast(`Didn't Connect to socket\nSee log ->\n\n(Click to make this go away)`, {position: 'left',})
                         })
 
