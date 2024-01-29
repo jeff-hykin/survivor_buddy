@@ -1,6 +1,6 @@
 # What is this?
 
-WARNING: this repository is not finished
+WARNING: while the setup instructions are complete, the assignment & submission details are in-progress/missing. Just FYI 
 
 This is a repo for the survivor buddy lab assignment
 
