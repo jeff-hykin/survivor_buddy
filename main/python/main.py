@@ -88,12 +88,18 @@ class Robot:
         
     
     def when_video_chunk_received(chunk):
-        numpy_image_array = cv2.imdecode(numpy.fromstring(chunk.data, np.uint8), cv2.IMREAD_COLOR)
+        numpy_image_array = cv2.imdecode(numpy.frombuffer(chunk.data, np.uint8), cv2.IMREAD_COLOR)
         # NOTE: this is not an rgb image ... its a bgr image because openCV is dumb like that
         
         # 
         # Edit me
         # 
+        print(f'''numpy_image_array.shape = {numpy_image_array.shape}''')
+        
+        # uncomment the following to start an interactive python terminal right here
+        # (good for debugging and playing with variables)
+        # import code
+        # code.interact(local={**globals(),**locals()})
         Robot.status.frame_count += 1
         print(f'''frame: {Robot.status.frame_count}, I got a chunk of video: {numpy_image_array.shape}''')
     
