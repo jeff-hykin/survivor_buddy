@@ -10,6 +10,6 @@ const { projectRoot, settingsPath, certFile, keyFile, catkinFolder, serverFolder
 
 // This wrapper only exists to load the ENV vars before running the python command
 
-await run("python3", `${projectRoot}/main/python/main.py`, Cwd(projectRoot))
+await run("python3", `${projectRoot}/main/python/main.py`, ...Deno.args, Cwd(projectRoot))
 
 // (this comment is part of deno-guillotine, dont remove) #>
