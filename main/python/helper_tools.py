@@ -89,6 +89,9 @@ class JointPositions:
         return f"[ torso_joint={self.torso_joint:.0f}°, neck_swivel={self.neck_swivel:.0f}°, head_tilt={self.head_tilt:.0f}°, head_nod={self.head_nod:.0f}°,  ]"
 
 
+# 
+# cli tool
+# 
 def convert_args(raw_args):
     """
     Example:

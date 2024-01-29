@@ -88,4 +88,6 @@ else
         cd - 1>/dev/null
     fi
 fi
-pip install blissful_basics
+pip install blissful-basics==0.2.36
+pip install insightface==0.7.3
+pip install onnxruntime==1.16.3
