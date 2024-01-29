@@ -11,13 +11,18 @@ The end goal is have the survivor buddy react to a handful of gesture inputs fro
 
 ### Overview of Steps
 
-1. Get Linux (a specific-ish version)
-2. Get ROS + Rviz running
-3. After Linux/ROS/Rviz are installed, you can start testing your code in Rviz
-4. Once your code is working, meet with me in person so we can push the code to survivor buddy and see if it works on a real robot
+1. Make a github repo
+2. Get Linux (a specific-ish version)
+3. Get ROS + Rviz running
+4. After Linux/ROS/Rviz are installed, you can start testing your code in Rviz
+5. Once your code is working, meet with me in person so we can push the code to survivor buddy and see if it works on a real robot
 
 ## How to actually do the thing
 
+- Make a github repo
+    1. Click the green "Use Template" button in the top-right-ish of this screen
+    2. MAKE IT PRIVATE [tutorial](https://stackoverflow.com/questions/57836411/how-can-i-switch-a-public-repo-to-private-and-vice-versa-on-github)
+    3. Copy down the url of your repo for a later step (e.g. my url is https://github.com/jeff-hykin/survivor_buddy)
 - Getting Linux
     - Note: if this step ends up being a problem for you, I have a pre-setup bootable flash drive you can clone.
     - We are using ROS noetic (e.g. ROS 1) so you're probably going to want to install Ubuntu 20.04
@@ -36,7 +41,19 @@ The end goal is have the survivor buddy react to a handful of gesture inputs fro
             - Docker would be great except for rviz. If you can get rviz to work through docker, all the power to you.
 - Getting ROS/Rviz
     1. Boot up your linux machine, open the terminal app
-    2. Clone and cd into this repo `git clone https://github.com/jeff-hykin/survivor_buddy.git`
+    2. Login to your github
+        - You can do this with keys pretty quickly
+            - run `ssh-keygen -t rsa` (press enter 3 times, ignore the output unless its an error)
+            - run `cat ~/.ssh/id_rsa.pub`
+            - copy the output of the cat command
+            - login to github online
+            - go to your account settings
+            - go to "SSH and GPG keys"
+            - click "New ssh key"
+            - enter any title you want
+            - paste the output of the cat command into the main box
+            - save
+    2. Clone and cd into your repo `git clone YOUR_REPO_URL_HERE`
     3. Run this command `run/install_stuff`
     4. Once it finishes, everything you need for lab 1 should be installed
 - Test Rviz
