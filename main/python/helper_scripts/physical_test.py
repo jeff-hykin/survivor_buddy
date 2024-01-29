@@ -3,15 +3,6 @@ from geometry_msgs.msg import TwistStamped
 
 twist = TwistStamped()
 
-# helper function to convert input from rads to degrees
-
-
-def degrees(x):
-    return x * 180 / 3.141592653589793
-
-# main function
-
-
 def main():
     print("Joint positions are in degrees and input needs to be in the following order: ")
     print("joint1 joint2 joint3 joint4\n")
@@ -27,13 +18,13 @@ def main():
         if len(in_val.split()) != 4:
             print("Invalid input. Please enter 4 joint positions")
             continue
-        goalPos = [float(x) for x in in_val.split()]
+        goal_pos = [float(x) for x in in_val.split()]
         global twist
-        twist.twist.linear.x = -goalPos[0]
-        twist.twist.linear.y = -goalPos[1]
-        twist.twist.linear.z = goalPos[2]
-        twist.twist.angular.x = -goalPos[3]
-        print("Sending joint positions: ", goalPos)
+        twist.twist.linear.x = -goal_pos[0]
+        twist.twist.linear.y = -goal_pos[1]
+        twist.twist.linear.z = goal_pos[2]
+        twist.twist.angular.x = -goal_pos[3]
+        print("Sending joint positions: ", goal_pos)
         pub.publish(twist)
         rate.sleep()
 

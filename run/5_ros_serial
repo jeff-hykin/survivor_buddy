@@ -14,7 +14,7 @@ if (!(owner.canRead && owner.canWrite && owner.canExecute && group.canRead && gr
     console.log("Making sure /dev/ttyUSB0 is accessible")
     await run`sudo chmod 777 /dev/ttyUSB0`
 }
-let process = run`python3 sb_interface.py`
+let process = run`python3 ${`${projectRoot}/main/python/helper_scripts/rviz_to_physical.py`}`
 await run`rosrun rosserial_python serial_node.py /dev/ttyUSB0`
 
 // (this comment is part of deno-guillotine, dont remove) #>

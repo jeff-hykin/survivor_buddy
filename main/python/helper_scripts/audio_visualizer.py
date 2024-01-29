@@ -1,24 +1,3 @@
-# import rospy
-# from std_msgs.msg import Float32MultiArray
-# import matplotlib.pyplot as plt
-# import numpy as np
-
-# # Define a callback function to receive the data from the rostopic
-# def audio_callback(data):
-#     # Convert the data to a numpy array
-#     audio_data = np.array(data.data)
-#     # Plot the amplitude of the audio data
-#     plt.plot(audio_data)
-#     plt.show()
-
-# if __name__ == '__main__':
-#     # Initialize the ROS node
-#     rospy.init_node('audio_visualizer')
-#     # Subscribe to the rostopic
-#     rospy.Subscriber('/audio', Float32MultiArray, audio_callback)
-#     # Spin the node to receive messages
-#     rospy.spin()
-
 import rospy
 from std_msgs.msg import Float32MultiArray
 import matplotlib.pyplot as plt

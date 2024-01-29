@@ -28,7 +28,7 @@ from blissful_basics import singleton, LazyDict, Warnings
 # Warnings.disable() # uncomment if you want to disable all warnings
 
 sys.path.append(os.path.dirname(__file__))
-from helper_tools import JointPositions, time_since_prev, clip_value, convert_args
+from project_tools import JointPositions, time_since_prev, clip_value, convert_args
 
 # NOTE: you can edit anything, so if you don't like the structure just change it
 
@@ -198,21 +198,13 @@ class Robot:
             Robot.joint_publisher.publish(Robot.twist_obj)
             Robot.previous_joint_positions = joint_goals
         else:
-            joint_current = Robot.move_group.get_current_joint_values()
-            
-            joint_current[0] = joint_goals.torso_joint
-            joint_current[1] = joint_goals.neck_swivel
-            joint_current[2] = joint_goals.head_tilt
-            joint_current[3] = joint_goals.head_nod
-            
-            joint_current = tuple(joint_current)
-            # this gets rid of standing-still "jitter"
+            joint_current = [joint_goals.torso_joint, joint_goals.neck_swivel, joint_goals.head_tilt, joint_goals.head_nod]
             if all(prev == current for prev, current in zip(Robot.previous_joint_positions.as_list, joint_current)):
                 return
             else:
                 Robot.previous_joint_positions = JointPositions(joint_current)
             
-            Robot.move_group.go(joint_current, wait=wait)
+            Robot.move_group.go(tuple(math.radians(each) for each in joint_current), wait=wait)
             plan = Robot.move_group.plan()
             Robot.move_group.stop()
             

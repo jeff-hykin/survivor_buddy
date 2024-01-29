@@ -42,7 +42,7 @@ The end goal is have the survivor buddy react to a handful of gesture inputs fro
 - Test Rviz
     1. cd into the folder, `cd ~/survivor_buddy`
     2. start rviz, `run/3_move_it`
-    3. run `. ./.env && python ./main/python/helper_scripts/sb_test_joint_positions.py`
+    3. run `. ./.env && python ./main/python/helper_scripts/rviz_test.py`
     4. type in some test commands and see if bot moves inside of Rviz
 - Run Survivor Buddy Code:
     1. cd into the folder `cd ~/survivor_buddy`
@@ -67,7 +67,7 @@ The end goal is have the survivor buddy react to a handful of gesture inputs fro
         - click the "Connect to ROSbridge Server"
         - if success, toggle the camera switch to the "on" position
     5. start rviz `run/3_move_it`
-    6. run the python code `python ./main/python/main.py --example_arg 'Im an example'`
+    6. run the python code `. ./.env && python ./main/python/main.py --example_arg 'Im an example'`
     7. Hopefully when your python code performs robot actions, you can see it executed on Rviz
 - Deploy to the robot
     1. the start is similar to the previous instructions:
