@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-url="https://github.com/jeff-hykin/survivor_buddy" 
+url="https://github.com/jeff-hykin/tamu_csce_635_labs.git"
 branch="master" 
-
+cd ..
 if [[ -z "$url" ]]
 then
         echo "What is the url to the mixin?"
