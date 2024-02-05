@@ -88,6 +88,7 @@ In person by Fri Feb 9
         - inside `lab1/main/python/main.py` there is a commented-out `import code` find it, play around with it, maybe read the python documentation on it
     - Audio threshold message (demo of knowing how to receive audio)
         - in the `main.py` theres a "when_audio_chunk_received" use that to print a threshold when audio is over a certain volume
+        - the audio array is a bunch of amplitudes, and it should always have a length of 2048. Try and detect the max/min value.
     - Curious / look-around action (demo of knowing how to move motors in rviz)
         - Needs to involve at least 2 degrees of freedom
         - Use the `Robot.move_towards_positions` inside of main.py. 
