@@ -27,6 +27,6 @@ This is code for the survivor buddy lab assignment.
 
 ## Notes
 
-- If the instructions say something like "loud" or "a long time", you get to pick what is considered loud/a long time.
+- When the instructions say something like "loud" or "a long time", you get to pick what is considered loud/a long time.
     - The only caveat is for the "well technically" kinda people like myself; if you pick something like 1 nano second and say "well I think thats a long time" we will choose 5 of your peers at random, and get them to judge whether or not its a ridiculous choice.
-
+- Running `run/pull_changes` will download any updates (ex: instructions for lab2)
