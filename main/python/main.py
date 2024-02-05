@@ -82,9 +82,6 @@ class Robot:
                     head_nod=5, # <- more negative = face the cieling
                 )
             )
-            Robot.tell_camera_server(dict(
-                blah_blah_blah="you can send any data here, so long as it is JSON-able (e.g. dict, list, string, None, numbers (but not NaN!))"
-            ))
         
     
     def when_video_chunk_received(chunk):
@@ -111,7 +108,7 @@ class Robot:
             # uncomment the following to start an interactive python terminal right here
             # (good for debugging and playing with variables)
             # import code
-            # code.interact(local={**globals(),**locals()})
+            # code.interact(banner="",local={**globals(),**locals()})
             Robot.status.frame_count += 1
             print(f'''frame: {Robot.status.frame_count}, I got a chunk of video: {numpy_image_array.shape}''')
             
