@@ -123,7 +123,7 @@ export function parse(data: Uint8Array | string): KeyCode[] {
         s += ch = next();
 
         if (ch >= "0" && ch <= "9") {
-          modifier = (Number(ch) >> 0) - 1;
+          modifier = (new Number(ch) >> 0) - 1;
           s += ch = next();
         }
 
@@ -195,10 +195,10 @@ export function parse(data: Uint8Array | string): KeyCode[] {
 
         if ((match = cmd.match(/^(\d\d?)(;(\d))?([~^$])$/))) {
           code += match[1] + match[4];
-          modifier = (Number(match[3]) || 1) - 1;
+          modifier = (new Number(match[3]) || 1) - 1;
         } else if ((match = cmd.match(/^((\d;)?(\d))?([A-Za-z])$/))) {
           code += match[4];
-          modifier = (Number(match[3]) || 1) - 1;
+          modifier = (new Number(match[3]) || 1) - 1;
         } else {
           code += cmd;
         }
