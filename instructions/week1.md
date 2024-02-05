@@ -23,7 +23,7 @@ In person by Fri Feb 9
 - Setup (85% of the work)
     - It takes time so either work on this early, or come to lab (EABC) Friday morning to get the process started
     - Getting Linux
-        - Note: if this step ends up being a problem for you, I have a pre-setup bootable flash drive you can clone (takes 1hr to clone).
+        - Note: if this step ends up being a problem for you, bring a ≥32Gb (USB 3.1 or 3.2) flashdrive. I have a pre-setup bootable flash drive you can clone (takes 1hr to clone).
         - We are using ROS noetic (e.g. ROS 1) so you're probably going to want to install Ubuntu 20.04
             - Why not 22.04?
                 - Cause I'm pretty sure there isn't a way to make ROS 1 work on 22.04
