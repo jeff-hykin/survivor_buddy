@@ -131,7 +131,7 @@ if (whichWeek == "week 1: Learning the ropes") {
         "I could display python messages on the camera website",
     ]
     const result = await checkChecklist(tasks)
-    storageObject.lab1 = { ...storageObject?.lab1, week1: { ...storageObject?.lab1?.week1, checklist: Object.fromEntries(tasks.map(each=>[each, result.includes(each)])) } }
+    storageObject.lab1 = { ...storageObject?.lab1, week1: { done: null, date: null, ...storageObject?.lab1?.week1, checklist: Object.fromEntries(tasks.map(each=>[each, result.includes(each)])) } }
 
     console.log()
     console.log(` ${green`done   `}: Tasks`)
@@ -195,12 +195,7 @@ if (whichWeek.startsWith("week 2:")) {
         "Clapping triggers the curious action in survivor buddy (on rviz)",
         "Survivor buddy returns to its original pose after looking around",
     ]
-    const result = await prompt([{ name: "Task checklist",message: "_",type: Checkbox,options: tasks, }]).checklist
-    if (result.length < tasks.length) {
-        console.log(`Okay, finish those before demoing to the TA`)
-        console.log(`(Then re-run this)`)
-        Deno.exit(1)
-    }
+    storageObject.lab1 = { ...storageObject?.lab1, week2: { done: null, date: null, ...storageObject?.lab1?.week2, checklist: Object.fromEntries(tasks.map(each=>[each, result.includes(each)])) } }
 
     console.log()
     console.log(` ${green`done   `}: Tasks`)
@@ -264,12 +259,7 @@ if (whichWeek.startsWith("week 3:")) {
         "Clapping when asleep triggers startled",
         "Louder claps cause a greater startle reaction (even if its hard to see the difference)",
     ]
-    const result = await prompt([{ name: "Task checklist",message: "_",type: Checkbox,options: tasks, }]).checklist
-    if (result.length < tasks.length) {
-        console.log(`Okay, finish those before demoing to the TA`)
-        console.log(`(Then re-run this)`)
-        Deno.exit(1)
-    }
+    storageObject.lab1 = { ...storageObject?.lab1, week3: { done: null, date: null, ...storageObject?.lab1?.week3, checklist: Object.fromEntries(tasks.map(each=>[each, result.includes(each)])) } }
 
     console.log()
     console.log(` ${green`done   `}: Tasks`)
@@ -332,12 +322,7 @@ if (whichWeek.startsWith("week 4:")) {
         "If a face gets too close, survivor buddy leans back",
         "If a face disappears from center view, survivor buddy acts curious",
     ]
-    const result = await prompt([{ name: "Task checklist",message: "_",type: Checkbox,options: tasks, }]).checklist
-    if (result.length < tasks.length) {
-        console.log(`Okay, finish those before demoing to the TA`)
-        console.log(`(Then re-run this)`)
-        Deno.exit(1)
-    }
+    storageObject.lab1 = { ...storageObject?.lab1, week4: { done: null, date: null, ...storageObject?.lab1?.week4, checklist: Object.fromEntries(tasks.map(each=>[each, result.includes(each)])) } }
 
     console.log()
     console.log(` ${green`done   `}: Tasks`)
