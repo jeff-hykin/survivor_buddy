@@ -6,12 +6,12 @@ In person Fri Feb 16
 
 ## What needs to be done
 
-- Be ready to demonstrate any of the behaviors on rviz
+- Run the `run/check` command
+- Be ready to demonstrate any of the behaviors (below) on rviz
 - Be ready to show code / code structure (parameters / schema's)
 - Alternatively, submit a screen recording that
     - shows the code structure
     - demo **all** of the behaviors in Rviz
-- Run the `run/submit` command
 
 ## Tasks
 

@@ -14,6 +14,8 @@ import { mergeUnrelated, gitUrl } from "../support/js_tools/git_stuff.js"
 import { project } from "../support/js_tools/project.js"
 import { createStorageObject } from "https://deno.land/x/storage_object@0.0.3.4/deno.js"
 import { capitalize, indent, toCamelCase, digitsToEnglishArray, toPascalCase, toKebabCase, toSnakeCase, toScreamingtoKebabCase, toScreamingtoSnakeCase, toRepresentation, toString, regex, findAll, iterativelyFindAll, escapeRegexMatch, escapeRegexReplace, extractFirst, isValidIdentifier, removeCommonPrefix, didYouMean } from "https://deno.land/x/good@1.6.0.0/string.js"
+import {Checkbox,  Confirm,  Input,  prompt,} from "../support/js_tools/generic/input_tools.js"
+
 const { projectRoot, settingsPath, certFile, keyFile, catkinFolder, serverFolder, websiteEntrypoint, rbServerPath } = project
 const storageObject = createStorageObject(`${projectRoot}/../.submission_info.yaml`)
 
@@ -22,6 +24,7 @@ const taGithubUsername = `jeff-hykin`
 const campusWireUrl = `https://campuswire.com/c/GF0FF0752`
 const taEmail = `jeff.hykin@tamu.edu`
 
+FileSystem.pwd = `${projectRoot}/..`
 
 // 
 // check repo URL
@@ -82,7 +85,31 @@ const whichWeek = await selectOne({
 // week1
 // 
 if (whichWeek == "week 1: Learning the ropes") {
-    if (confirm("have you demonstrated some tasks to the TA?\n(choose no if you want to submit a video)\n")) {
+    const tasks = [
+        "I got Linux (or docker or whatever) running",
+        "I got rviz running",
+        "I got the robot to move on rviz (e.g. test command)",
+        "I can use change the face's expressions on the camera website",
+        "I can demo the interactive python terminal",
+        "I can print a statement when audio is above a threshold",
+        "I made a curious/look-around behavior in rviz",
+        "I could display python messages on the camera website",
+    ]
+    const result = await prompt([{ name: "Task checklist",message: "_",type: Checkbox,options: tasks, }]).checklist
+    if (result.length < tasks.length) {
+        console.log(`Okay, finish those before demoing to the TA`)
+        console.log(`(Then re-run this)`)
+        Deno.exit(1)
+    }
+
+    console.log()
+    console.log(`Good!`)
+    console.log(` ${green`done   `}: Tasks`)
+    console.log(` ${red`pending`}: demo/video`)
+    console.log(` ${red`pending`}: submission`)
+    console.log()
+    
+    if (confirm("Have you demonstrated some tasks to the TA?\n(say no if you want to submit a video instead)\n")) {
         storageObject.lab1 = { ...storageObject.lab1, week1: { done: true, demonstrated: true, date: `${new Date()}` } }
     } else {
         if (confirm("have you uploaded a video to your tamu google drive?")) {
@@ -115,14 +142,34 @@ if (whichWeek == "week 1: Learning the ropes") {
     await run`git tag ${tagName}`
     await run`git push origin ${tagName}`
     await run`git push`
-    console.log(`If you don't see any error messages you should be good to go 👍`)
+    console.log(`If you don't see any error messages you're done 👍`)
 }
 
 // 
 // week 2
 // 
 if (whichWeek.startsWith("week 2:")) {
-    if (confirm("have you demonstrated some tasks to the TA?\n(choose no if you want to submit a video)\n")) {
+    const tasks = [
+        "I created clap detection",
+        "My code structure follows a behaviorial schema",
+        "Clapping triggers the curious action in survivor buddy (on rviz)",
+        "Survivor buddy returns to its original pose after looking around",
+    ]
+    const result = await prompt([{ name: "Task checklist",message: "_",type: Checkbox,options: tasks, }]).checklist
+    if (result.length < tasks.length) {
+        console.log(`Okay, finish those before demoing to the TA`)
+        console.log(`(Then re-run this)`)
+        Deno.exit(1)
+    }
+
+    console.log()
+    console.log(`Good!`)
+    console.log(` ${green`done   `}: Tasks`)
+    console.log(` ${red`pending`}: demo/video`)
+    console.log(` ${red`pending`}: submission`)
+    console.log()
+
+    if (confirm("Did you demo to the TA?\n(choose no if you want to submit a video)\n")) {
         storageObject.lab1 = { ...storageObject.lab1, week2: { done: true, demonstrated: true, date: `${new Date()}` } }
     } else {
         if (confirm("have you uploaded a video to your tamu google drive?")) {
@@ -155,14 +202,42 @@ if (whichWeek.startsWith("week 2:")) {
     await run`git tag ${tagName}`
     await run`git push origin ${tagName}`
     await run`git push`
-    console.log(`If you don't see any error messages you should be good to go 👍`)
+    console.log(`If you don't see any error messages you're done 👍`)
 }
 
 // 
 // week 3
 // 
 if (whichWeek.startsWith("week 3:")) {
-    if (confirm("have you demonstrated some tasks to the TA?\n(choose no if you want to submit a video)\n")) {
+    const tasks = [
+        "I created a fearful action",
+        "the fearful action involves more than 1 motor",
+        "the fearful action includes a facial expression",
+        "I created a startled action",
+        "the startled action has an intensity parameter",
+        "the startled action involves more than 1 motor",
+        "the survivor buddy returns to its original pose after a while",
+        "the survivor buddy can fall asleep",
+        "Continuous loud noise causes fearful, even if in a curious/startled action",
+        "Clapping when awake triggers curious",
+        "Clapping when asleep triggers startled",
+        "Louder claps cause a greater startle reaction (even if its hard to see the difference)",
+    ]
+    const result = await prompt([{ name: "Task checklist",message: "_",type: Checkbox,options: tasks, }]).checklist
+    if (result.length < tasks.length) {
+        console.log(`Okay, finish those before demoing to the TA`)
+        console.log(`(Then re-run this)`)
+        Deno.exit(1)
+    }
+
+    console.log()
+    console.log(`Good!`)
+    console.log(` ${green`done   `}: Tasks`)
+    console.log(` ${red`pending`}: demo/video`)
+    console.log(` ${red`pending`}: submission`)
+    console.log()
+
+    if (confirm("did you demonstrate a behavior to the TA?\n(choose no if you want to submit a video)\n")) {
         storageObject.lab1 = { ...storageObject.lab1, week3: { done: true, demonstrated: true, date: `${new Date()}` } }
     } else {
         if (confirm("have you uploaded a video to your tamu google drive?")) {
@@ -195,7 +270,74 @@ if (whichWeek.startsWith("week 3:")) {
     await run`git tag ${tagName}`
     await run`git push origin ${tagName}`
     await run`git push`
-    console.log(`If you don't see any error messages you should be good to go 👍`)
+    console.log(`If you don't see any error messages you're done 👍`)
+}
+
+// 
+// week 4
+// 
+if (whichWeek.startsWith("week 4:")) {
+    const tasks = [
+        "I can use the face API in python",
+        "I can make a talking sound",
+        "Seeing a face in a neutral state triggers the happy expression",
+        "The 'look at' behavior was created",
+        "Survivor buddy starts talking when there's moderate noise",
+        "Loud noise cause the fearful behavior",
+        "No stimulus for some amount of time causes survivor buddy to go into a neutral state",
+        "A face being too close causes the startled behavior",
+        "Survivor buddy starts looking/tracking a face if one is in view",
+        "If a face gets too close, survivor buddy leans back",
+        "If a face disappears from center view, survivor buddy acts curious",
+    ]
+    const result = await prompt([{ name: "Task checklist",message: "_",type: Checkbox,options: tasks, }]).checklist
+    if (result.length < tasks.length) {
+        console.log(`Okay, finish those before demoing to the TA`)
+        console.log(`(Then re-run this)`)
+        Deno.exit(1)
+    }
+
+    console.log()
+    console.log(`Good!`)
+    console.log(` ${green`done   `}: Tasks`)
+    console.log(` ${red`pending`}: demo/video`)
+    console.log(` ${red`pending`}: submission`)
+    console.log()
+
+    if (confirm("have you demonstrated some tasks to the TA?\n(choose no if you want to submit a video)\n")) {
+        storageObject.lab1 = { ...storageObject.lab1, week4: { done: true, demonstrated: true, date: `${new Date()}` } }
+    } else {
+        if (confirm("have you uploaded a video to your tamu google drive?")) {
+            if (confirm(`did you share it with ${taEmail}?`)) {
+                while (1) {
+                    const url = prompt(`what's the URL to the video?`)
+                    try {
+                        new URL(url)
+                        storageObject.lab1 = { ...storageObject.lab1, week4: { done: true, videoUrl: url, date: `${new Date()}` } }
+                        break
+                    } catch (error) {
+                        console.log(`Hmmm, I think that might not be a valid URL.\nMake sure it includes the https://\nAnd if you need to cancel press CTRL+C`)
+                    }
+                }
+            } else {
+                console.log(`Okay please do that then re-run this script`)
+                Deno.exit()
+            }
+        } else {
+            console.log(`Okay please do that then re-run this script`)
+            Deno.exit()
+        }
+    }
+    console.log(`great, let me upload your changes`)
+    const tagName = `lab1_week4_tag`
+    await run`git add -A`
+    await run`git commit -m ${`lab1 week4 submit`} ${Stderr(null)}`
+    await run`git push --delete origin ${tagName} ${Stderr(null)}`
+    await run`git push --delete ${tagName} ${Stderr(null)}`
+    await run`git tag ${tagName}`
+    await run`git push origin ${tagName}`
+    await run`git push`
+    console.log(`If you don't see any error messages you're done 👍`)
 }
 
 

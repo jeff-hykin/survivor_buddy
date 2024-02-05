@@ -6,13 +6,13 @@ In person Fri Feb 23
 
 ## What needs to be done
 
+- Run the `run/check` command
+- Getting the code running on the physical bot may be a requirement; check in on this the week of the lab. (run `run/pull_changes` to update/refresh the instructions)
 - Be ready to demonstrate any of the behaviors on on rviz
 - Be ready to show code / code structure
 - Alternatively, submit a screen recording that
     - shows the code structure (e.g. parameters/schema)
     - demo **all** of the behaviors in Rviz
-- Getting the code running on the physical bot may be a requirement; check in on this the week of the lab. (run `run/pull_changes` to update/refresh the instructions)
-- Run the `run/submit` command
 
 ## Tasks
 

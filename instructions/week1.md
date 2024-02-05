@@ -6,9 +6,9 @@ In person Fri Feb 9
 
 ## What needs to be done
 
+- Run the `run/check` command (which will ask/tell you some stuff)
 - Be ready to demonstrate any of the tasks (below) to me
-- Alternatively, submit a screen recording of **all** of the tasks
-- Run the `run/submit` command (which will ask/tell you some stuff)
+    - Alternatively, submit a screen recording of **all** of the tasks
 
 ## Tasks
 

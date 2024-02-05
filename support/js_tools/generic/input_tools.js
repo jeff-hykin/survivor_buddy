@@ -2,6 +2,12 @@ import { zip, enumerate, count, permute, combinations, wrapAroundGet } from "htt
 import { Input } from "../../cliffy/prompt/input.ts"
 import { stripColor } from "../../cliffy/prompt/deps.ts"
 import { distance } from "../../cliffy/_utils/distance.ts"
+export {
+  Checkbox,
+  Confirm,
+  Input,
+  prompt,
+} from "../../cliffy/prompt/mod.ts";
 
 export function selectOne({ message, showList, showInfo, options, optionDescriptions, autocompleteOnSubmit=true }) {
     let optionStrings
