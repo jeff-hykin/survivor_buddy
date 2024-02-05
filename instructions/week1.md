@@ -8,21 +8,17 @@ In person Fri Feb 9
 
 - Be ready to demonstrate any of the tasks (below) to me
 - Alternatively, submit a screen recording of **all** of the tasks
-    - If you do this
-    1. Upload the screen recording to your school google drive
-    2. Share it with me (jeff.hykin@tamu.edu)
-    3. Then run the `run/submit` command which will ask you for the url
+- Run the `run/submit` command (which will ask/tell you some stuff)
 
 ## Tasks
 
-- show the Happy eye expression (e.g. just demo using the API) 
-- Inline interactive python terminal (e.g. demo how to debug)
+- Show the Happy eye expression using the browser
+- Demo how to debug python using the inline interactive python terminal
 - Audio threshold message (demo of knowing how to receive audio)
-- Curious / look-around action (demo of knowing how to move motors in rviz)
-    - Needs to involve at least 2 degrees of freedom
+- Creat a curious / look-around action for the robot
 - Log a face communication message (demo of knowing communication through ROS)
 
-## How to do the thing
+## How to do the things:
 
 - Setup (85% of the work)
     - It takes time so either work on this early, or come to lab (EABC) Friday morning to get the process started

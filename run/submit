@@ -70,20 +70,20 @@ const whichWeek = await selectOne({
     showList: true,
     showInfo: false,
     options: [
-        "lab 1: Learning the ropes",
-        "lab 2: Following a schema",
-        "lab 3: Multi behavior",
-        "lab 3: Face detection",
+        "week 1: Learning the ropes",
+        "week 2: Following a schema",
+        "week 3: Multi behavior",
+        "week 4: Face detection",
     ],
     autocompleteOnSubmit: true,
 })
 
 // 
-// lab1
+// week1
 // 
-if (whichWeek == "lab 1: Learning the ropes") {
+if (whichWeek == "week 1: Learning the ropes") {
     if (confirm("have you demonstrated some tasks to the TA?\n(choose no if you want to submit a video)\n")) {
-        storageObject.lab1 = { ...storageObject.lab1, week1: { done: true, demonstrated: true, } }
+        storageObject.lab1 = { ...storageObject.lab1, week1: { done: true, demonstrated: true, date: `${new Date()}` } }
     } else {
         if (confirm("have you uploaded a video to your tamu google drive?")) {
             if (confirm(`did you share it with ${taEmail}?`)) {
@@ -91,7 +91,7 @@ if (whichWeek == "lab 1: Learning the ropes") {
                     const url = prompt(`what's the URL to the video?`)
                     try {
                         new URL(url)
-                        storageObject.lab1 = { ...storageObject.lab1, week1: { done: true, videoUrl: url, } }
+                        storageObject.lab1 = { ...storageObject.lab1, week1: { done: true, videoUrl: url, date: `${new Date()}` } }
                         break
                     } catch (error) {
                         console.log(`Hmmm, I think that might not be a valid URL.\nMake sure it includes the https://\nAnd if you need to cancel press CTRL+C`)
@@ -110,6 +110,86 @@ if (whichWeek == "lab 1: Learning the ropes") {
     const tagName = `lab1_week1_tag`
     await run`git add -A`
     await run`git commit -m ${`lab1 week1 submit`} ${Stderr(null)}`
+    await run`git push --delete origin ${tagName} ${Stderr(null)}`
+    await run`git push --delete ${tagName} ${Stderr(null)}`
+    await run`git tag ${tagName}`
+    await run`git push origin ${tagName}`
+    await run`git push`
+    console.log(`If you don't see any error messages you should be good to go 👍`)
+}
+
+// 
+// week 2
+// 
+if (whichWeek.startsWith("week 2:")) {
+    if (confirm("have you demonstrated some tasks to the TA?\n(choose no if you want to submit a video)\n")) {
+        storageObject.lab1 = { ...storageObject.lab1, week2: { done: true, demonstrated: true, date: `${new Date()}` } }
+    } else {
+        if (confirm("have you uploaded a video to your tamu google drive?")) {
+            if (confirm(`did you share it with ${taEmail}?`)) {
+                while (1) {
+                    const url = prompt(`what's the URL to the video?`)
+                    try {
+                        new URL(url)
+                        storageObject.lab1 = { ...storageObject.lab1, week2: { done: true, videoUrl: url, date: `${new Date()}` } }
+                        break
+                    } catch (error) {
+                        console.log(`Hmmm, I think that might not be a valid URL.\nMake sure it includes the https://\nAnd if you need to cancel press CTRL+C`)
+                    }
+                }
+            } else {
+                console.log(`Okay please do that then re-run this script`)
+                Deno.exit()
+            }
+        } else {
+            console.log(`Okay please do that then re-run this script`)
+            Deno.exit()
+        }
+    }
+    console.log(`great, let me upload your changes`)
+    const tagName = `lab1_week2_tag`
+    await run`git add -A`
+    await run`git commit -m ${`lab1 week2 submit`} ${Stderr(null)}`
+    await run`git push --delete origin ${tagName} ${Stderr(null)}`
+    await run`git push --delete ${tagName} ${Stderr(null)}`
+    await run`git tag ${tagName}`
+    await run`git push origin ${tagName}`
+    await run`git push`
+    console.log(`If you don't see any error messages you should be good to go 👍`)
+}
+
+// 
+// week 3
+// 
+if (whichWeek.startsWith("week 3:")) {
+    if (confirm("have you demonstrated some tasks to the TA?\n(choose no if you want to submit a video)\n")) {
+        storageObject.lab1 = { ...storageObject.lab1, week3: { done: true, demonstrated: true, date: `${new Date()}` } }
+    } else {
+        if (confirm("have you uploaded a video to your tamu google drive?")) {
+            if (confirm(`did you share it with ${taEmail}?`)) {
+                while (1) {
+                    const url = prompt(`what's the URL to the video?`)
+                    try {
+                        new URL(url)
+                        storageObject.lab1 = { ...storageObject.lab1, week3: { done: true, videoUrl: url, date: `${new Date()}` } }
+                        break
+                    } catch (error) {
+                        console.log(`Hmmm, I think that might not be a valid URL.\nMake sure it includes the https://\nAnd if you need to cancel press CTRL+C`)
+                    }
+                }
+            } else {
+                console.log(`Okay please do that then re-run this script`)
+                Deno.exit()
+            }
+        } else {
+            console.log(`Okay please do that then re-run this script`)
+            Deno.exit()
+        }
+    }
+    console.log(`great, let me upload your changes`)
+    const tagName = `lab1_week3_tag`
+    await run`git add -A`
+    await run`git commit -m ${`lab1 week3 submit`} ${Stderr(null)}`
     await run`git push --delete origin ${tagName} ${Stderr(null)}`
     await run`git push --delete ${tagName} ${Stderr(null)}`
     await run`git tag ${tagName}`
