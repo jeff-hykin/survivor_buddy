@@ -59,7 +59,7 @@ In person by Fri Feb 9
     - Test Rviz
         1. cd into lab1, e.g. (E.g. `cd ~/tamu_csce_635_labs/lab1`)
         2. start rviz, `run/3_move_it`
-        3. run `. ./.env && python ./main/python/helper_scripts/rviz_test.py`
+        3. run `. ./.env && python3 ./main/python/helper_scripts/rviz_test.py`
         4. type in some test positions and see if bot moves inside of Rviz
     - Run Survivor Buddy Code
         1. as always, cd into lab1, e.g. (E.g. `cd ~/tamu_csce_635_labs/lab1`)
@@ -77,7 +77,7 @@ In person by Fri Feb 9
                 - Try switching the camera toggle, and follow the instructions in the log
                 - Now that both sites are approved, you should be able to click the "Connect to ROSbridge Server"
         5. In a third terminal start rviz `run/3_move_it`
-        6. In a fourth terminal run the python code. Either `run/4_python` or run `. ./.env && python ./main/python/main.py`
+        6. In a fourth terminal run the python code. Either `run/4_python` or run `. ./.env && python3 ./main/python/main.py`
         7. The default python code should print out stuff about the incoming audio/video data
         8. If you edit the python code (the "when_video_chunk_received" and "when_audio_chunk_received" in `main/python/main.py`), you should be able to use `Robot.move_towards_positions()` to make the robot in rviz move around.
 - Tasks
