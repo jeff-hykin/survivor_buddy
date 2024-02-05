@@ -1,6 +1,6 @@
 import { Elemental } from "https://deno.land/x/elementalist@0.5.35/main/deno.js?code"  // this makes writing html easy
-import { fadeIn, fadeOut } from "https://deno.land/x/good_component@0.2.14/main/animations.js" // just some boilerplate
 import { showToast, showErrorToast } from "https://deno.land/x/good_component@0.2.14/main/actions/show_toast.js" // helpful pop-up tools (google "toast notifiction")
+import { playSound } from "https://deno.land/x/animalese@1.0.1.0/animalese.js"
 import { Face } from "./helpers/face.js" // this is a more complicated custom element that has animated eyes/expressions
 import { fadeAfterNoInteraction } from "./helpers/opacity_helper.js" // this is a timing-helper
 

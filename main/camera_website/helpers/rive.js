@@ -3,7 +3,6 @@ const exports = {}
 ;(function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object') {
 		module.exports = factory();
-        console.debug(`module.exports is:`,module.exports)
     } else if(typeof define === 'function' && define.amd)
 		define([], factory);
 	else if(typeof exports === 'object')
