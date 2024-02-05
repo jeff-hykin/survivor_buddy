@@ -16,7 +16,7 @@ In person by Fri Feb 9
 - Demo how to debug python using the inline interactive python terminal
 - Audio threshold message (demo of knowing how to receive audio)
 - Create a curious / look-around action for the robot (look left and right)
-- Log a face communication message (demo of knowing communication through ROS)
+- Send a message from python to the eyes/face (demo of knowing communication through ROS)
 
 ## How to do the things:
 
