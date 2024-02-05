@@ -45,7 +45,7 @@ In person by Fri Feb 9
                 - run `ssh-keygen -t rsa` (press enter 3 times, ignore the output unless its an error)
                 - run `cat ~/.ssh/id_rsa.pub`
                 - copy the output of the cat command
-                - login to github online
+                - login to github on a web browser
                 - go to your account settings
                 - go to "SSH and GPG keys"
                 - click "New ssh key"
