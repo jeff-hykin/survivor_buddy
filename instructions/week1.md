@@ -15,7 +15,7 @@ In person by Fri Feb 9
 - Show the Happy eye expression using the browser
 - Demo how to debug python using the inline interactive python terminal
 - Audio threshold message (demo of knowing how to receive audio)
-- Creat a curious / look-around action for the robot
+- Create a curious / look-around action for the robot
 - Log a face communication message (demo of knowing communication through ROS)
 
 ## How to do the things:
