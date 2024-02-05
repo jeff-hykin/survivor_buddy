@@ -16,7 +16,12 @@ if (FileSystem.sync.info("/opt/ros/noetic/").isFolder) {
 
 if (!FileSystem.sync.info(`${catkinFolder}/devel`).isFolder) {
     console.log(`Looks like you haven't got the catkin_ws folder setup`)
-    console.log(`try running the install_stuff command to get it setup`)
+    console.log(`try running the ${cyan`run/install_stuff`} command to get it setup`)
+    console.log(`\nIf you have issue let me know.`)
+    if (!confirm(yellow`\nIgnore that and continue the command anyways?`)) {
+        Deno.exit(1)
+    }
+    console.log("\n\n\n\n")
 } else {
     await withPwd(`${catkinFolder}/devel`, async ()=>{
         await loadShellScript({ scriptPath: `${FileSystem.pwd}/setup.bash` })
