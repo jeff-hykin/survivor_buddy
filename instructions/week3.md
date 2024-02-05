@@ -2,7 +2,7 @@
 
 ## Due when?
 
-In person Fri Feb 23
+In person by Fri March 1st
 
 ## What needs to be done
 

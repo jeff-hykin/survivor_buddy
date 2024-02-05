@@ -31,7 +31,8 @@ This is code for the survivor buddy lab assignment.
 
 Note: lots of these are in person. E.g. "Fri" means "Fri when I leave EABC" not "Fri at 11:59pm"
 
-- lab 1 week 1: Fri Feb 9
-- lab 1 week 2: Fri Feb 16
-- lab 1 week 3: Fri Feb 23
-- lab 1 week 4: Fri March 1st
+- week 1: Fri Feb 9
+- week 2: Fri Feb 16
+- (skip a week for Test)
+- week 3: Fri March 1st
+- week 4: Fri March 8st

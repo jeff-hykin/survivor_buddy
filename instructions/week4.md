@@ -7,7 +7,7 @@ Two due dates!
     - demonstrate using the Face API
     - demonstrate using `playSound()` in the main.js 
     - It can be after class, in office hours, or in a screen recording 
-- Then the typical in person demo Fri March 1st
+- Then the typical in person demo Fri March 8st
 
 ## What needs to be done
 
