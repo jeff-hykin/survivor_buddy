@@ -52,8 +52,7 @@ In person by Fri Feb 9
                 - enter any title you want
                 - paste the output of the cat command into the main box
                 - save
-        2. Clone and cd into your repo
-            - Note: do `git clone YOUR_SSH_URL` e.g. [click here on your repo to get the url](https://github.com/jeff-hykin/tamu_csce_635_labs/blob/master/lab1/documentation/git_ssh_url.png)
+        2. Run `git clone YOUR_SSH_URL` [click here on your repo for your ssh url](https://github.com/jeff-hykin/tamu_csce_635_labs/blob/master/lab1/documentation/git_ssh_url.png) and cd into your repo
         3. Cd into lab1. E.g. `cd ~/YOUR_REPO_NAME/lab1`
         4. Run this command `run/install_stuff`
         5. Once it finishes, everything you need for lab 1 should be installed
