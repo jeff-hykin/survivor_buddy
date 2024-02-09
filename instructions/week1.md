@@ -52,17 +52,18 @@ In person by Fri Feb 9
                 - enter any title you want
                 - paste the output of the cat command into the main box
                 - save
-        2. Clone and cd into your repo `git clone YOUR_REPO_URL_HERE`
-        3. Cd into lab1. E.g. `cd ~/tamu_csce_635_labs/lab1`
+        2. Clone and cd into your repo
+            - Note: do `git clone YOUR_SSH_URL` e.g. [click here on your repo to get the url](https://github.com/jeff-hykin/tamu_csce_635_labs/blob/master/lab1/documentation/git_ssh_url.png)
+        3. Cd into lab1. E.g. `cd ~/YOUR_REPO_NAME/lab1`
         4. Run this command `run/install_stuff`
         5. Once it finishes, everything you need for lab 1 should be installed
     - Test Rviz
-        1. cd into lab1, e.g. (E.g. `cd ~/tamu_csce_635_labs/lab1`)
+        1. cd into lab1, e.g. (E.g. `cd ~/YOUR_REPO_NAME/lab1`)
         2. start rviz, `run/3_move_it`
         3. run `. ./.env && python3 ./main/python/helper_scripts/rviz_test.py`
         4. type in some test positions and see if bot moves inside of Rviz
     - Run Survivor Buddy Code
-        1. as always, cd into lab1, e.g. (E.g. `cd ~/tamu_csce_635_labs/lab1`)
+        1. as always, cd into lab1, e.g. (E.g. `cd ~/YOUR_REPO_NAME/lab1`)
         2. In your first terminal start the camera server `run/1_camera_server`
             - It will print out the **camera's URL**
         3. In a second terminal start the ros bridge server `run/2_ros_bridge_server` (images will get sent to the bridge)
