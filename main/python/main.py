@@ -217,14 +217,13 @@ class Robot:
             joint_current[2] = joint_goals.head_tilt
             joint_current[3] = joint_goals.head_nod
             
-            joint_current = tuple(joint_current)
             # this gets rid of standing-still "jitter"
             if all(prev == current for prev, current in zip(Robot.previous_joint_positions.as_list, joint_current)):
                 return
             else:
                 Robot.previous_joint_positions = JointPositions(joint_current)
             
-            Robot.move_group.go(joint_current, wait=wait)
+            Robot.move_group.go(tuple(math.radians(each) for each in joint_current), wait=wait)
             plan = Robot.move_group.plan()
             Robot.move_group.stop()
             
