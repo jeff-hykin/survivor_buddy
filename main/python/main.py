@@ -38,8 +38,8 @@ config = LazyDict(
     video_height=480,
     
     BLAH_BLAH_BLAH_YOUR_VARIABLE_HERE="something",
-    # NOTE:
-    #  running python ./main/python/main.py --something 99,
+    # NOTE: running python ./main/python/main.py --BLAH_BLAH_BLAH_YOUR_VARIABLE_HERE 99
+    #       will effectively change the "something" to 99
 )
 
 class Robot:
